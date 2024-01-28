@@ -5,6 +5,7 @@ Credits:
 Users who have contributed to these commands.
 
 https://github.com/tbaldur
+
 https://github.com/mehdiakram
 
 ______________________________
@@ -66,8 +67,9 @@ sh <(curl https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/rest
 ```
 
 ______________________________
-# ALPHA FEATURES BELLOW! NEEDS PROPER TESTING! USE AT YOUR OWN RISK! - by tbaldur
-## Cyberpanel core permissions fix
+# ALPHA FEATURES BELLOW! NEEDS PROPER TESTING! USE AT YOUR OWN RISK!
+
+## Cyberpanel core permissions fix  - by tbaldur
 
 Run in case you messed your cyberpanel permissions. 
 ```
@@ -94,9 +96,10 @@ ______________________________
 ```
 sh <(curl https://raw.githubusercontent.com/master3395/cyberpanel-tweaks/main/defaultwebsitepage.sh || wget -O - https://raw.githubusercontent.com/master3395/cyberpanel-tweaks/main/defaultwebsitepage.sh)
 ```
-
 ______________________________
-# Cyberpanel-fixperms
+# NON ALPHA FEATURES BELLOW!
+______________________________
+# Cyberpanel-fixperms - by mehdiakram
 
 A script to fix permissions and ownership, on files and directories, for Cyberpanel accounts.
 
