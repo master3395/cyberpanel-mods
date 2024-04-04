@@ -1,6 +1,13 @@
 # cyberpanel-mods
 Small changes to cyberpanel core installation
 
+Credits:
+Users who have contributed to these commands.
+
+https://github.com/tbaldur
+
+https://github.com/mehdiakram
+
 ______________________________
 phpMyAdmin + Snappymail version changer. Enter php version without "."
 
@@ -60,14 +67,15 @@ sh <(curl https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/rest
 ```
 
 ______________________________
-# ALPHA FEATURES BELLOW! NEEDS PROPER TESTING! USE AT YOUR OWN RISK!
-
-## Cyberpanel core permissions fix  - by tbaldur
+# ALPHA FEATURES BELLOW! NEEDS PROPER TESTING! USE AT YOUR OWN RISK! - by tbaldur
+## Cyberpanel core permissions fix
 
 Run in case you messed your cyberpanel permissions. 
 ```
 sh <(curl https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fix_permissions.sh || wget -O - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fix_permissions.sh)
 ```
+https://github.com/mehdiakram/cyberpanel-tweaks/tree/main
+
 ______________________________
 # ALPHA FEATURES BELLOW! NEEDS PROPER TESTING! USE AT YOUR OWN RISK! - by tbaldur
 ## Cyberpanel core permissions fix
@@ -87,11 +95,11 @@ ______________________________
 ```
 sh <(curl https://raw.githubusercontent.com/master3395/cyberpanel-tweaks/main/defaultwebsitepage.sh || wget -O - https://raw.githubusercontent.com/master3395/cyberpanel-tweaks/main/defaultwebsitepage.sh)
 ```
+
 ______________________________
 # NON ALPHA FEATURES BELLOW!
 ______________________________
 # Cyberpanel-fixperms - by mehdiakram
-
 A script to fix permissions and ownership, on files and directories, for Cyberpanel accounts.
 
 ## More Info
@@ -159,14 +167,6 @@ Now that `fixperms` is in Github, all contributors will have proper credit. Howe
 
 - Dean Freeman
 - Colin R.
-
-Users who have contributed to these commands.
-
-https://github.com/tbaldur
-#https://github.com/tbaldur/cyberpanel-mods
-
-https://github.com/mehdiakram
-#https://github.com/mehdiakram/cyberpanel-tweaks
 
 ## Contributing
 If you would like to contribute, simply create a new feature branch, named for the fix, and submit a merge request.
