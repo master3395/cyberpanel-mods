@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Asks for snappy version
-echo "What version of snappymail you want to use? (e.g 2.36.4) "
+echo "What version of snappymail do you want to use? (e.g 2.36.4) "
 read SNAPPY_VERSION
 
 #Create folder if doesn't exist
