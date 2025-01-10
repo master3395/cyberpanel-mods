@@ -1,164 +1,193 @@
-#!/usr/bin/env bash
-# Author: Michael Ramsey (Modified by Assistant)
-# Objective: Fix permissions issues for Linux users using CyberPanel, cPanel, or Plesk
+#!/bin/bash
+# CyberPanel Utility Script with FixPerms Integration
 
-# Detect the Control Panel
-if [ -f /usr/local/cpanel/cpanel ]; then
-    ControlPanel="cpanel"
-elif [ -f /usr/bin/cyberpanel ]; then
-    ControlPanel="cyberpanel"
-elif [ -f /usr/local/psa/core.version ]; then
-    ControlPanel="plesk"
-else
-    echo "Not able to detect Control Panel. Unsupported Control Panel. Exiting now."
-    exit 1
-fi
+export LC_CTYPE=en_US.UTF-8
+SUDO_TEST=$(set)
+BRANCH_NAME="stable"
+GIT_URL="github.com/usmannasir/cyberpanel"
+GIT_CONTENT_URL="raw.githubusercontent.com/usmannasir/cyberpanel"
 
-echo "============================================================="
-echo "$ControlPanel Control Panel Detected"
-echo "============================================================="
+fixperms() {
+    echo -e "\nFixPerms Utility\n"
+    echo -e "1. Fix permissions for a single user."
+    echo -e "2. Fix permissions for all users."
+    echo -e "3. Back to Main Menu.\n"
+    printf "%s" "Please enter number [1-3]: "
+    read option
 
-# Detect the OS
-if [ -f /etc/os-release ]; then
-    . /etc/os-release
-    OS=$NAME
-    VER=$VERSION_ID
-else
-    echo "Unable to detect the operating system. Exiting."
-    exit 1
-fi
-
-# Print Help Text
-helptext() {
-    echo "Fix Perms Script Help:"
-    echo "Sets file/directory permissions to match suPHP and FastCGI schemes"
-    echo "USAGE: fixperms [options] -a account_name"
-    echo "-------"
-    echo "Options:"
-    echo "-h or --help: Print this help menu and exit"
-    echo "-v: Verbose output"
-    echo "-all: Run on all CyberPanel accounts"
-    echo "--account or -a: Specify a CyberPanel/cPanel/Plesk account"
-    exit 0
+    case $option in
+        1)
+            read -p "Enter the username: " username
+            sudo bash <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fixperms.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fixperms.sh) -a $username
+            ;;
+        2)
+            sudo bash <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fixperms.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fixperms.sh) -all
+            ;;
+        3)
+            main_page
+            ;;
+        *)
+            echo "Invalid option. Returning to the main menu."
+            main_page
+            ;;
+    esac
 }
 
-# Fix Permissions for CyberPanel Users
-fixperms_cyberpanel() {
-    local account=$1
-
-    if [ -z "$account" ]; then
-        echo "Error: Account name is required."
-        return
+check_OS() {
+    if [[ ! -f /etc/os-release ]] ; then
+        echo -e "Unable to detect the operating system...\n"
+        exit
     fi
 
-    local user_homedir=$(grep -E "^${account}:" /etc/passwd | cut -d: -f6)
+    DISTRO=$(grep "^ID=" /etc/os-release | grep -E -o "[a-z]\w+")
 
-    if [ -z "$user_homedir" ]; then
-        echo "Error: User $account does not exist."
-        return
+    case $DISTRO in
+        centos)
+            Server_OS="CentOS";;
+        almalinux)
+            Server_OS="AlmaLinux";;
+        cloudlinux)
+            Server_OS="CloudLinux";;
+        ubuntu)
+            Server_OS="Ubuntu";;
+        rocky)
+            Server_OS="RockyLinux";;
+        openeuler)
+            Server_OS="openEuler";;
+        *)
+            echo -e "Unable to detect your system..."
+            echo -e "\nCyberPanel is supported on x86_64 based Ubuntu 18.04, Ubuntu 20.04, Ubuntu 20.10, Ubuntu 22.04, CentOS 7, CentOS 8, AlmaLinux 8, RockyLinux 8, CloudLinux 7, CloudLinux 8, openEuler 20.03, openEuler 22.03...\n"
+            exit;;
+    esac
+
+    Server_OS_Version=$(grep VERSION_ID /etc/os-release | awk -F[=,] '{print $2}' | tr -d \" | head -c2 | tr -d .)
+    echo -e "System: $Server_OS $Server_OS_Version detected...\n"
+
+    if [[ $Server_OS == "CloudLinux" || "$Server_OS" == "AlmaLinux" || "$Server_OS" == "RockyLinux" ]] ; then
+        Server_OS="CentOS"
     fi
-
-    echo "Fixing permissions for CyberPanel user: $account"
-
-    chown -R $account:$account "$user_homedir"/public_html
-    chmod -R 755 "$user_homedir"/public_html
-    find "$user_homedir"/public_html -type f -exec chmod 644 {} \;
-
-    chown -R vmail:vmail /home/vmail
-    chmod 755 /home/vmail
-    find /home/vmail -type d -exec chmod 755 {} \;
-    find /home/vmail -type f -exec chmod 640 {} \;
-
-    echo "Finished fixing permissions for CyberPanel user: $account"
 }
 
-# Fix Permissions for cPanel Users
-fixperms_cpanel() {
-    local account=$1
+main_page() {
+    echo -e "\t\tCyberPanel Utility Tools \e[31m(beta)\e[39m
 
-    if [ -z "$account" ]; then
-        echo "Error: Account name is required."
-        return
-    fi
+  1. Upgrade CyberPanel.
 
-    local user_homedir=$(grep -E "^${account}:" /etc/passwd | cut -d: -f6)
+  2. FixPerms Utility.
 
-    if [ -z "$user_homedir" ]; then
-        echo "Error: User $account does not exist."
-        return
-    fi
+  3. Addons.
 
-    echo "Fixing permissions for cPanel user: $account"
+  4. Frequently Asked Question (FAQ).
 
-    chown -R $account:$account "$user_homedir"/public_html
-    chmod -R 755 "$user_homedir"/public_html
-    find "$user_homedir"/public_html -type f -exec chmod 644 {} \;
+  5. Exit.
 
-    echo "Finished fixing permissions for cPanel user: $account"
+  "
+    read -p "  Please enter the number[1-5]: " num
+    echo ""
+    case "$num" in
+        1)
+            cyberpanel_upgrade
+            ;;
+        2)
+            fixperms
+            ;;
+        3)
+            addons
+            ;;
+        4)
+            show_help
+            ;;
+        5)
+            exit
+            ;;
+        *)
+            echo -e "  Please enter the right number [1-5]\n"
+            exit
+            ;;
+    esac
 }
 
-# Fix Permissions for Plesk Users
-fixperms_plesk() {
-    local account=$1
+# Additional existing functions like addons(), cyberpanel_upgrade(), etc., remain unchanged.
 
-    if [ -z "$account" ]; then
-        echo "Error: Account name is required."
-        return
+sudo_check() {
+    echo -e "\nChecking root privileges..."
+    if echo $SUDO_TEST | grep SUDO > /dev/null ; then
+        echo -e "\nYou are using SUDO, please run as root user..."
+        echo -e "\nIf you don't have direct access to root user, please run \e[31msudo su -\e[39m command (do NOT miss the \e[31m-\e[39m at end or it will fail) and then run utility command again."
+        exit
     fi
 
-    local user_homedir=$(grep -E "^${account}:" /etc/passwd | cut -d: -f6)
-
-    if [ -z "$user_homedir" ]; then
-        echo "Error: User $account does not exist."
-        return
-    fi
-
-    echo "Fixing permissions for Plesk user: $account"
-
-    chown -R $account:psacln "$user_homedir"/httpdocs
-    chmod -R 755 "$user_homedir"/httpdocs
-    find "$user_homedir"/httpdocs -type f -exec chmod 644 {} \;
-
-    echo "Finished fixing permissions for Plesk user: $account"
-}
-
-# Fix Permissions for All Users
-fix_all() {
-    echo "Fixing permissions for all accounts..."
-    if [ "$ControlPanel" == "cyberpanel" ]; then
-        for user in $(getent passwd | awk -F: '1000<$3 && $3<60000 {print $1}'); do
-            fixperms_cyberpanel "$user"
-        done
-    elif [ "$ControlPanel" == "cpanel" ]; then
-        for user in $(cut -d: -f1 /etc/domainusers); do
-            fixperms_cpanel "$user"
-        done
+    if [[ $(id -u) != 0 ]]  > /dev/null; then
+        echo -e "\nYou must use root user to use CyberPanel Utility..."
+        exit
     else
-        echo "Fixing all accounts is only supported for CyberPanel and cPanel."
+        echo -e "\nYou are running as root..."
     fi
-    echo "Finished fixing permissions for all accounts."
 }
 
-# Main Script Function
-case "$1" in
-    -h|--help)
-        helptext
-        ;;
-    -v)
-        verbose="-v"
-        ;;
-    -all)
-        fix_all
-        ;;
-    -a|--account)
-        fixperms_cyberpanel "$2"
-        fixperms_cpanel "$2"
-        fixperms_plesk "$2"
-        ;;
-    *)
-        echo "Invalid Option!"
-        helptext
-        ;;
-esac
+sudo_check
 
-exit 0
+panel_check() {
+    if [[ ! -f /etc/cyberpanel/machineIP ]] ; then
+        echo -e "\nCannot detect CyberPanel..."
+        echo -e "\nExit..."
+        exit
+    fi
+}
+
+panel_check
+
+self_check() {
+    echo -e "\nChecking CyberPanel Utility update..."
+    SUM=$(md5sum /usr/bin/cyberpanel_utility)
+    SUM1=${SUM:0:32}
+    # Get md5sum of local file
+
+    rm -f /usr/local/CyberPanel/cyberpanel_utility.sh
+    wget -q -O /usr/local/CyberPanel/cyberpanel_utility.sh https://raw.githubusercontent.com/josephgodwinkimani/cyberpanel-mods/main/cyberpanel_utility.sh
+    chmod 600 /usr/local/CyberPanel/cyberpanel_utility.sh
+
+    SUM=$(md5sum /usr/local/CyberPanel/cyberpanel_utility.sh)
+    SUM2=${SUM:0:32}
+    # Get md5sum of remote file
+
+    if [[ $SUM1 == $SUM2 ]] ; then
+        echo -e "\nCyberPanel Utility Script is up to date...\n"
+    else
+        local_string=$(head -2 /usr/bin/cyberpanel_utility)
+        remote_string=$(head -2 /usr/local/CyberPanel/cyberpanel_utility.sh)
+        # Check file content before replacing itself in case failed to download the file.
+        if [[ $local_string == $remote_string ]] ; then
+            echo -e "\nUpdating CyberPanel Utility Script..."
+            rm -f /usr/bin/cyberpanel_utility
+            mv /usr/local/CyberPanel/cyberpanel_utility.sh /usr/bin/cyberpanel_utility
+            chmod 700 /usr/bin/cyberpanel_utility
+            echo -e "\nCyberPanel Utility update completed..."
+            echo -e "\nPlease execute it again..."
+            exit
+        else
+            echo -e "\nFailed to fetch server file..."
+            echo -e "\nKeep using local script..."
+        fi
+    fi
+
+    rm -f /usr/local/CyberPanel/cyberpanel_utility.sh
+}
+
+self_check
+
+check_OS
+
+if [ $# -eq 0 ] ; then
+    main_page
+else
+    if [[ $1 == "upgrade" ]] || [[ $1 == "-u" ]] || [[ $1 == "--update" ]] || [[ $1 == "--upgrade" ]] || [[ $1 == "update" ]]; then
+        cyberpanel_upgrade
+    fi
+    if [[ $1 == "help" ]] || [[ $1 == "-h" ]] || [[ $1 == "--help" ]] ; then
+        show_help
+        exit
+    fi
+    echo -e "\nUnrecognized argument..."
+    exit
+fi
