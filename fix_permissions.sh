@@ -31,12 +31,14 @@ fi
 # Function: Print Help Text
 helptext() {
     echo "Fix Perms Script Help:"
-    echo "Usage: fixperms [options] -a account_name"
+    echo "Sets file/directory permissions to match suPHP and FastCGI schemes"
+    echo "USAGE: Select an option from the menu"
+    echo "-------"
     echo "Options:"
-    echo "  -h or --help       Show this help message"
-    echo "  -v                 Enable verbose output"
-    echo "  -all               Run on all accounts"
-    echo "  -a <account_name>  Specify a CyberPanel/cPanel/Plesk account"
+    echo "1) Fix permissions for all accounts"
+    echo "2) Fix permissions for a specific account"
+    echo "3) Display help"
+    echo "4) Exit"
     exit 0
 }
 
@@ -46,14 +48,14 @@ fixperms_cyberpanel() {
 
     if [ -z "$account" ]; then
         echo "Error: Account name is required."
-        helptext
+        return
     fi
 
     local user_homedir=$(grep -E "^${account}:" /etc/passwd | cut -d: -f6)
 
     if [ -z "$user_homedir" ]; then
         echo "Error: User $account does not exist."
-        exit 1
+        return
     fi
 
     echo "Fixing permissions for CyberPanel user: $account"
@@ -76,14 +78,14 @@ fixperms_cpanel() {
 
     if [ -z "$account" ]; then
         echo "Error: Account name is required."
-        helptext
+        return
     fi
 
     local user_homedir=$(grep -E "^${account}:" /etc/passwd | cut -d: -f6)
 
     if [ -z "$user_homedir" ]; then
         echo "Error: User $account does not exist."
-        exit 1
+        return
     fi
 
     echo "Fixing permissions for cPanel user: $account"
@@ -101,14 +103,14 @@ fixperms_plesk() {
 
     if [ -z "$account" ]; then
         echo "Error: Account name is required."
-        helptext
+        return
     fi
 
     local user_homedir=$(grep -E "^${account}:" /etc/passwd | cut -d: -f6)
 
     if [ -z "$user_homedir" ]; then
         echo "Error: User $account does not exist."
-        exit 1
+        return
     fi
 
     echo "Fixing permissions for Plesk user: $account"
@@ -120,63 +122,57 @@ fixperms_plesk() {
     echo "Finished fixing permissions for Plesk user: $account"
 }
 
-# Main Function
-fixperms() {
-    local account=$1
-
-    case "$ControlPanel" in
-        cpanel)
-            fixperms_cpanel "$account"
-            ;;
-        cyberpanel)
-            fixperms_cyberpanel "$account"
-            ;;
-        plesk)
-            fixperms_plesk "$account"
-            ;;
-        *)
-            echo "Error: Unsupported Control Panel."
-            exit 1
-            ;;
-    esac
-}
-
-# Interactive Menu
+# Main Menu Function
 display_menu() {
-    echo "Select an option:"
-    echo "1) Run on all accounts (-all)"
-    echo "2) Specify an account (-a)"
-    echo "3) Display help (-h)"
-    echo "4) Exit"
-    read -rp "Enter your choice: " choice
+    while true; do
+        echo "============================================"
+        echo "Fix Permissions Script"
+        echo "============================================"
+        echo "1) Fix permissions for all accounts"
+        echo "2) Fix permissions for a specific account"
+        echo "3) Display help"
+        echo "4) Exit"
+        read -rp "Enter your choice: " choice
 
-    case $choice in
-        1)
-            if [ "$ControlPanel" == "cyberpanel" ]; then
-                for user in $(getent passwd | awk -F: '1000<$3 && $3<60000 {print $1}'); do
-                    fixperms "$user"
-                done
-            else
-                echo "-all option is only supported for CyberPanel."
-                exit 1
-            fi
-            ;;
-        2)
-            read -rp "Enter the account name: " account
-            fixperms "$account"
-            ;;
-        3)
-            helptext
-            ;;
-        4)
-            echo "Exiting."
-            exit 0
-            ;;
-        *)
-            echo "Invalid choice. Please try again."
-            display_menu
-            ;;
-    esac
+        case $choice in
+            1)
+                if [ "$ControlPanel" == "cyberpanel" ]; then
+                    for user in $(getent passwd | awk -F: '1000<$3 && $3<60000 {print $1}'); do
+                        fixperms_cyberpanel "$user"
+                    done
+                else
+                    echo "Fixing all accounts is only supported for CyberPanel."
+                fi
+                ;;
+            2)
+                read -rp "Enter the account name: " account
+                case "$ControlPanel" in
+                    cpanel)
+                        fixperms_cpanel "$account"
+                        ;;
+                    cyberpanel)
+                        fixperms_cyberpanel "$account"
+                        ;;
+                    plesk)
+                        fixperms_plesk "$account"
+                        ;;
+                    *)
+                        echo "Unsupported Control Panel."
+                        ;;
+                esac
+                ;;
+            3)
+                helptext
+                ;;
+            4)
+                echo "Exiting."
+                break
+                ;;
+            *)
+                echo "Invalid choice. Please try again."
+                ;;
+        esac
+    done
 }
 
 display_menu
