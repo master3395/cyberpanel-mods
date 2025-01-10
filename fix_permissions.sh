@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 # Author: Michael Ramsey (Modified by Assistant)
 # Objective: Fix permissions issues for Linux users using CyberPanel, cPanel, or Plesk
@@ -142,31 +141,44 @@ fixperms() {
     esac
 }
 
-# Handle Arguments
-case "$1" in
-    -h|--help)
-        helptext
-        ;;
-    -v)
-        verbose="-v"
-        ;;
-    -all)
-        if [ "$ControlPanel" == "cyberpanel" ]; then
-            for user in $(getent passwd | awk -F: '1000<$3 && $3<60000 {print $1}'); do
-                fixperms "$user"
-            done
-        else
-            echo "-all option is only supported for CyberPanel."
-            exit 1
-        fi
-        ;;
-    -a)
-        fixperms "$2"
-        ;;
-    *)
-        echo "Error: Invalid option."
-        helptext
-        ;;
-esac
+# Interactive Menu
+display_menu() {
+    echo "Select an option:"
+    echo "1) Run on all accounts (-all)"
+    echo "2) Specify an account (-a)"
+    echo "3) Display help (-h)"
+    echo "4) Exit"
+    read -rp "Enter your choice: " choice
+
+    case $choice in
+        1)
+            if [ "$ControlPanel" == "cyberpanel" ]; then
+                for user in $(getent passwd | awk -F: '1000<$3 && $3<60000 {print $1}'); do
+                    fixperms "$user"
+                done
+            else
+                echo "-all option is only supported for CyberPanel."
+                exit 1
+            fi
+            ;;
+        2)
+            read -rp "Enter the account name: " account
+            fixperms "$account"
+            ;;
+        3)
+            helptext
+            ;;
+        4)
+            echo "Exiting."
+            exit 0
+            ;;
+        *)
+            echo "Invalid choice. Please try again."
+            display_menu
+            ;;
+    esac
+}
+
+display_menu
 
 exit 0
