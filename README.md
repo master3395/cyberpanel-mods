@@ -40,82 +40,100 @@ Fixes symbolic link issues in CyberPanel.
 sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel_fix_symbolic_links.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel_fix_symbolic_links.sh)
 ```
 
-### 🗑️ [cyberpanel_sessions.sh](https://github.com/master3395/cyberpanel-mods/blob/main/cyberpanel_sessions.sh)
-Manages and clears old CyberPanel sessions.
+### 🔄 [phpmod.sh](https://github.com/master3395/cyberpanel-mods/blob/main/phpmod.sh)
+phpMyAdmin + Snappymail version changer. Enter PHP version without dot (e.g., for PHP 8.1 enter `81`).
 
 ```bash
-# Clear old CyberPanel sessions
-sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel_sessions.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel_sessions.sh)
-```
-
-### 🔄 [cyberpanel_sessions_cronjob.sh](https://github.com/master3395/cyberpanel-mods/blob/main/cyberpanel_sessions_cronjob.sh)
-Automates session cleanup with a cronjob.
-
-```bash
-# Schedule CyberPanel session cleanup via cronjob
-sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel_sessions_cronjob.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel_sessions_cronjob.sh)
-```
-
-### 🌍 [defaultwebsitepage.sh](https://github.com/master3395/cyberpanel-mods/blob/main/defaultwebsitepage.sh)
-Sets a custom default webpage for new websites.
-
-```bash
-# Set custom default webpage
-sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/defaultwebsitepage.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/defaultwebsitepage.sh)
-```
-
-### 🔓 [disable_2fa.sh](https://github.com/master3395/cyberpanel-mods/blob/main/disable_2fa.sh)
-Disables two-factor authentication in CyberPanel.
-
-```bash
-# Disable CyberPanel 2FA
-sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/disable_2fa.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/disable_2fa.sh)
-```
-
-### 🚨 [fix_503_service_unavailable.sh](https://github.com/master3395/cyberpanel-mods/blob/main/fix_503_service_unavailable.sh)
-Fixes 503 Service Unavailable errors in CyberPanel.
-
-```bash
-# Fix CyberPanel 503 errors
-sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fix_503_service_unavailable.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fix_503_service_unavailable.sh)
-```
-
-### 🔧 [fix_missing_wp_cli.sh](https://github.com/master3395/cyberpanel-mods/blob/main/fix_missing_wp_cli.sh)
-Installs or repairs missing WP-CLI (WordPress Command-Line Interface).
-
-```bash
-# Install or fix WP-CLI
-sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fix_missing_wp_cli.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fix_missing_wp_cli.sh)
-```
-
-### 📂 [install_pureftpd.sh](https://github.com/master3395/cyberpanel-mods/blob/main/install_pureftpd.sh)
-Installs and configures Pure-FTPd.
-
-```bash
-# Install Pure-FTPd
-sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/install_pureftpd.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/install_pureftpd.sh)
-```
-
-### 📂 [install_vsftpd.sh](https://github.com/master3395/cyberpanel-mods/blob/main/install_vsftpd.sh)
-Installs and configures VSFTPD.
-
-```bash
-# Install VSFTPD
-sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/install_vsftpd.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/install_vsftpd.sh)
-```
-
-### 🔄 [mariadb_v_changer.sh](https://github.com/master3395/cyberpanel-mods/blob/main/mariadb_v_changer.sh)
-Changes the MariaDB version.
-
-```bash
-# Change MariaDB version
-sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/mariadb_v_changer.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/mariadb_v_changer.sh)
+# Change PHP version
+sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/phpmod.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/phpmod.sh)
 ```
 
 ### 🔥 [modsec_rules_v_changer.sh](https://github.com/master3395/cyberpanel-mods/blob/main/modsec_rules_v_changer.sh)
-Changes the OWASP ModSecurity rules version.
+OWASP ModSecurity rules version changer. Input the version you want to change to (e.g., 3.3.4).
 
 ```bash
-# Update ModSecurity rules
-sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/modsec_rules_v_changer.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/modsec_rules_v_changer.sh)
+# Change OWASP ModSecurity rules version
+bash <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/modsec_rules_v_changer.sh) || bash <(wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/modsec_rules_v_changer.sh)
+```
+
+### 📧 [snappymail_v_changer.sh](https://github.com/master3395/cyberpanel-mods/blob/main/snappymail_v_changer.sh)
+Snappymail version changer. Input the version you want to change to (e.g., 2.18.2).
+
+```bash
+# Change Snappymail version
+sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/snappymail_v_changer.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/snappymail_v_changer.sh)
+```
+
+### 🗂️ [phpmyadmin_v_changer.sh](https://github.com/master3395/cyberpanel-mods/blob/main/phpmyadmin_v_changer.sh)
+phpMyAdmin version changer. Input the version you want to change to (e.g., 5.2.0).
+
+```bash
+# Change phpMyAdmin version
+sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/phpmyadmin_v_changer.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/phpmyadmin_v_changer.sh)
+```
+
+
+# cyberpanel-mods
+Small changes to cyberpanel core installation
+
+phpMyAdmin + Snappymail version changer. Enter php version without "."
+
+# For php8.1 write choose "81" in the script.
+```
+sh <(curl https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/phpmod.sh || wget -O - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/phpmod.sh)
+```
+![](https://community.cyberpanel.net/uploads/default/original/2X/0/00feaa708386036ce807b7d7b67c57230f2dfe45.png)
+
+______________________________
+# OWSAP modsecurity rules version changer
+Input version you want to change to e.g 3.3.4
+```
+bash <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/modsec_rules_v_changer.sh) || bash <(wget -O - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/modsec_rules_v_changer.sh) 
+```
+![imagem](https://github.com/tbaldur/cyberpanel-mods/assets/97204751/a94ab169-6333-40ab-9e11-8632b38aba90)
+
+______________________________
+
+# Snappymail version changer
+Input version you want to change to e.g 2.18.2
+```
+sh <(curl https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/snappymail_v_changer.sh || wget -O - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/snappymail_v_changer.sh)
+```
+![imagem](https://user-images.githubusercontent.com/97204751/192609788-355a24ec-e0cf-407a-91b7-51bb4121e5f4.png)
+
+______________________________
+# phpMyAdmin version changer
+Input version you want to change to e.g 5.2.0
+```
+sh <(curl https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/phpmyadmin_v_changer.sh || wget -O - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/phpmyadmin_v_changer.sh)
+```
+![imagem](https://user-images.githubusercontent.com/97204751/208486782-a0205d4f-8698-4cdb-bad1-9f47e19bf5ba.png)
+
+______________________________
+# Fix missing acme-challenge context on all vhosts config
+```
+sh <(curl https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fix_ssl_missing_context.sh || wget -O - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fix_ssl_missing_context.sh)
+```
+![imagem](https://user-images.githubusercontent.com/97204751/186309709-30e11069-4833-4d05-b118-d7ba55960b56.png)
+
+_____________________________
+# Remove two-step authentication when you lost it
+```
+sh <(curl https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/disable_2fa.sh || wget -O - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/disable_2fa.sh)
+```
+![imagem](https://user-images.githubusercontent.com/97204751/186309709-30e11069-4833-4d05-b118-d7ba55960b56.png)
+
+_____________________________
+# Install cyberpanel core database in case you deleted it
+```
+sh <(curl https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/restore_cyberpanel_database.sh || wget -O - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/restore_cyberpanel_database.sh)
+```
+
+______________________________
+# ALPHA FEATURES BELOW! NEEDS PROPER TESTING! USE AT YOUR OWN RISK!
+## CyberPanel core permissions fix
+
+Run in case you messed your CyberPanel permissions. 
+```
+sh <(curl https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fix_permissions.sh || wget -O - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/fix_permissions.sh)
 ```
