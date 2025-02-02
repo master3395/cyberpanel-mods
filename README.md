@@ -20,7 +20,6 @@ To use these scripts, copy the respective command and run it directly in your te
 Migrates DNS records from Cloudflare to PowerDNS.
 
 ```bash
-# Migrate Cloudflare DNS records to PowerDNS
 sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cloudflare_to_powerdns.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cloudflare_to_powerdns.sh)
 ```
 
@@ -28,7 +27,6 @@ sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/c
 Updates CrowdSec and manages configurations.
 
 ```bash
-# Update CrowdSec and apply configurations
 sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/crowdsec_update.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/crowdsec_update.sh)
 ```
 
@@ -36,7 +34,6 @@ sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/c
 Fixes symbolic link issues in CyberPanel.
 
 ```bash
-# Fix symbolic link issues in CyberPanel
 sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel_fix_symbolic_links.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel_fix_symbolic_links.sh)
 ```
 
@@ -44,7 +41,6 @@ sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/c
 phpMyAdmin + Snappymail version changer. Enter PHP version without dot (e.g., for PHP 8.1 enter `81`).
 
 ```bash
-# Change PHP version
 sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/phpmod.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/phpmod.sh)
 ```
 
@@ -52,7 +48,6 @@ sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/p
 OWASP ModSecurity rules version changer. Input the version you want to change to (e.g., 3.3.4).
 
 ```bash
-# Change OWASP ModSecurity rules version
 bash <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/modsec_rules_v_changer.sh) || bash <(wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/modsec_rules_v_changer.sh)
 ```
 
@@ -60,7 +55,6 @@ bash <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main
 Snappymail version changer. Input the version you want to change to (e.g., 2.18.2).
 
 ```bash
-# Change Snappymail version
 sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/snappymail_v_changer.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/snappymail_v_changer.sh)
 ```
 
@@ -68,15 +62,8 @@ sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/s
 phpMyAdmin version changer. Input the version you want to change to (e.g., 5.2.0).
 
 ```bash
-# Change phpMyAdmin version
 sh <(curl -s https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/phpmyadmin_v_changer.sh || wget -qO - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/phpmyadmin_v_changer.sh)
 ```
-
-
-# cyberpanel-mods
-Small changes to cyberpanel core installation
-
-phpMyAdmin + Snappymail version changer. Enter php version without "."
 
 # For php8.1 write choose "81" in the script.
 ```
