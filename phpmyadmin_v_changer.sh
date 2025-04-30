@@ -2,7 +2,7 @@
 set -e
 
 # Asks for phpMyAdmin version
-read -p "What version of phpMyAdmin do you want to use? (e.g., 5.2.1): " phpmyadmin_version
+read -p "What version of phpMyAdmin do you want to use? (e.g., 5.2.2): " phpmyadmin_version
 
 # Define constants
 dest_dir=/usr/local/CyberCP/public/phpmyadmin
