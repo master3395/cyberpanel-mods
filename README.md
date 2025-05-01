@@ -7,11 +7,12 @@ phpMyAdmin + Snappymail version changer. Enter php version without "."
 ```
 sh <(curl https://raw.githubusercontent.com/ethamah/cyberpanel-mods/refs/heads/main/phpmod.sh || https://raw.githubusercontent.com/ethamah/cyberpanel-mods/refs/heads/main/phpmod.sh)
 ```
+![](https://community.cyberpanel.net/uploads/default/original/2X/0/00feaa708386036ce807b7d7b67c57230f2dfe45.png)
 # v2
 ```
 sh <(curl https://raw.githubusercontent.com/ethamah/cyberpanel-mods/refs/heads/main/phpmod_v2.sh || https://raw.githubusercontent.com/ethamah/cyberpanel-mods/refs/heads/main/phpmod_v2.sh)
 ```
-![](https://community.cyberpanel.net/uploads/default/original/2X/0/00feaa708386036ce807b7d7b67c57230f2dfe45.png)
+![](https://raw.githubusercontent.com/ethamah/cyberpanel-mods/refs/heads/main/Screenshot%202025-05-01%20101827.png)
 ______________________________
 # OWSAP modsecurity rules version changer
 Input version you want to change to e.g 3.3.4
