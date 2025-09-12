@@ -1,5 +1,75 @@
 # 📋 CyberPanel Mods - Changelog
 
+## 🚀 Version 2.0.1 - Email Fixes Update (2025-01-12)
+
+### ✨ New Features
+
+#### 📧 Email Fixes Module
+- **sieve_fix_enhanced.sh** - Comprehensive Sieve (Filter) fix for SnappyMail
+  - Cross-platform compatibility for all supported OS
+  - Automatic package installation (dovecot-pigeonhole, dovecot-managesieved)
+  - Firewall configuration (port 4190 and email ports)
+  - Service management (Dovecot, Postfix, SpamAssassin)
+  - Default filtering rules (spam, newsletters)
+  - Configuration backup and restoration
+  - Verification system for installation validation
+  - Comprehensive logging and error handling
+
+#### 📚 Email Fixes Documentation
+- **README.md** - Complete documentation for email fixes
+- **SIEVE_QUICK_GUIDE.md** - Quick reference guide
+- **test_sieve_fix.sh** - Testing and validation script
+
+#### 🎯 Enhanced Menu System
+- Added Email Fixes section to main menu (Option 9)
+- Integrated Sieve fix into master menu system
+- Updated menu numbering and navigation
+
+### 🔧 Technical Improvements
+
+#### 📧 Sieve Integration
+- **Problem Solved**: CyberPanel doesn't automatically install Sieve (Filter) with SnappyMail
+- **Solution**: Complete automation of Sieve installation and configuration
+- **Support**: All CyberPanel-compatible operating systems
+- **Features**: Port management, service configuration, default rules
+
+#### 🛡️ Security Enhancements
+- Automatic firewall configuration for email services
+- Proper file permissions and ownership
+- Secure configuration backup procedures
+- Log file security and management
+
+### 📊 Compatibility Updates
+
+#### 🌐 OS Support Matrix
+- **Ubuntu**: 20.04, 22.04, 24.04 (100% compatible)
+- **AlmaLinux**: 8.x, 9.x (100% compatible)
+- **RockyLinux**: 8.x, 9.x (100% compatible)
+- **RHEL**: 8.x, 9.x (100% compatible)
+- **CentOS**: 7.x, 8.x (100% compatible)
+- **CloudLinux**: 7.x, 8.x (100% compatible)
+- **Debian**: All versions (100% compatible)
+- **openEuler**: All versions (100% compatible)
+
+### 🐛 Bug Fixes
+
+#### 📧 Email System Fixes
+- Fixed missing Sieve functionality in SnappyMail
+- Resolved port 4190 not being opened automatically
+- Fixed Dovecot configuration for Sieve support
+- Corrected Postfix LMTP configuration
+- Fixed log file permissions and ownership
+
+### 📚 Documentation Updates
+
+#### 📖 Enhanced Documentation
+- Updated main README.md with email fixes section
+- Added comprehensive Sieve fix documentation
+- Created quick reference guide
+- Updated changelog with new features
+
+---
+
 ## 🚀 Version 2.0.0 - Enhanced Repository (2025-01-12)
 
 ### ✨ Major Features

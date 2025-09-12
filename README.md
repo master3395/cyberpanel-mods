@@ -55,6 +55,12 @@ cyberpanel-mods/
 │   ├── fix_missing_wp_cli.sh
 │   └── fixperms.sh
 │
+├── 📁 email-fixes/             # Email-related fixes and enhancements
+│   ├── sieve_fix_enhanced.sh
+│   ├── README.md
+│   ├── SIEVE_QUICK_GUIDE.md
+│   └── test_sieve_fix.sh
+│
 ├── 📁 docs/                    # Comprehensive documentation
 │   ├── installation-guide.md
 │   ├── menu-demo.md
@@ -182,11 +188,12 @@ curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cybe
 6. **🗄️ MariaDB Version Manager** - Manage MariaDB versions (10.3-11.4)
 7. **📦 Application Version Managers** - Manage Snappymail, phpMyAdmin, ModSecurity
 8. **💾 Backup & Restore Tools** - Automated backup and restore
-9. **🖥️ OS-Specific Fixes** - Fixes for specific operating systems
-10. **📚 Documentation** - View all documentation
-11. **ℹ️ System Information** - Detailed system status
-12. **🔄 Update Menu Script** - Update to latest version
-13. **❌ Exit** - Exit the menu
+9. **📧 Email Fixes** - Email-related fixes and enhancements
+10. **🖥️ OS-Specific Fixes** - Fixes for specific operating systems
+11. **📚 Documentation** - View all documentation
+12. **ℹ️ System Information** - Detailed system status
+13. **🔄 Update Menu Script** - Update to latest version
+14. **❌ Exit** - Exit the menu
 
 ### 🚀 Quick Commands
 ```bash
@@ -224,6 +231,52 @@ curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core
 # Run specific fixes
 curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/cyberpanel_core_fixes_enhanced.sh | bash -- --symbolic-links --permissions
 ```
+
+## 📧 Email Fixes
+
+### 🔧 Sieve (Filter) Fix for SnappyMail
+Comprehensive fix for Sieve email filtering functionality in SnappyMail.
+
+**Problem Solved:**
+When you install CyberPanel, you don't automatically install Sieve (Filter) with SnappyMail. This fix addresses this issue by installing and configuring all necessary components.
+
+**Features:**
+- ✅ **Cross-platform compatibility** - Works on all CyberPanel-supported operating systems
+- ✅ **Automatic package installation** - Installs dovecot-pigeonhole and related packages
+- ✅ **Firewall configuration** - Opens port 4190 and email-related ports
+- ✅ **Service management** - Properly configures and restarts Dovecot and Postfix
+- ✅ **Default filtering rules** - Creates basic spam and newsletter filtering
+- ✅ **Configuration backup** - Backs up existing configurations before changes
+- ✅ **Verification system** - Verifies installation and configuration
+
+**Supported OS:**
+- Ubuntu/Debian
+- AlmaLinux 8.x/9.x
+- RockyLinux 8.x/9.x
+- RHEL 8.x/9.x
+- CentOS 7.x/8.x
+- CloudLinux 7.x/8.x
+- openEuler
+
+**Usage:**
+```bash
+# Run the fix
+curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/email-fixes/sieve_fix_enhanced.sh | bash
+
+# Verify installation
+curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/email-fixes/sieve_fix_enhanced.sh | bash -- --verify
+
+# Force reinstallation
+curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/email-fixes/sieve_fix_enhanced.sh | bash -- --force
+```
+
+**What it fixes:**
+- Installs Sieve packages (dovecot-pigeonhole, dovecot-managesieved)
+- Configures Dovecot for Sieve support
+- Configures Postfix for LMTP delivery
+- Opens firewall port 4190 for Sieve management
+- Creates default email filtering rules
+- Sets up proper log files and directories
 
 ## 🔄 Version Managers
 
