@@ -314,6 +314,36 @@ run_backup_restore() {
     done
 }
 
+# Function to run email fixes
+run_email_fixes() {
+    while true; do
+        echo -e "\n${CYAN}=== Email Fixes ===${NC}"
+        echo -e "1. Sieve (Filter) Fix for SnappyMail"
+        echo -e "2. Back to Main Menu"
+        echo -e ""
+        printf "%s" "Please enter number [1-2]: "
+        read choice
+        
+        case $choice in
+            1)
+                echo -e "\n${BLUE}Running Sieve Fix for SnappyMail...${NC}"
+                if [[ -f "email-fixes/sieve_fix_enhanced.sh" ]]; then
+                    bash email-fixes/sieve_fix_enhanced.sh
+                else
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/email-fixes/sieve_fix_enhanced.sh | bash
+                fi
+                pause
+                ;;
+            2)
+                break
+                ;;
+            *)
+                echo -e "${RED}Please enter a valid number [1-2]${NC}"
+                ;;
+        esac
+    done
+}
+
 # Function to run OS-specific fixes
 run_os_specific() {
     while true; do
@@ -514,15 +544,16 @@ show_main_menu() {
         echo -e "${WHITE}║  ${GREEN}6.${NC} 🗄️  MariaDB Version Manager                  ${WHITE}║${NC}"
         echo -e "${WHITE}║  ${GREEN}7.${NC} 📦 Application Version Managers             ${WHITE}║${NC}"
         echo -e "${WHITE}║  ${GREEN}8.${NC} 💾 Backup & Restore Tools                   ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}9.${NC} 🖥️  OS-Specific Fixes                       ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}10.${NC} 📚 Documentation                            ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}11.${NC} ℹ️  System Information                       ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}12.${NC} 🔄 Update Menu Script                       ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}13.${NC} ❌ Exit                                     ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}9.${NC} 📧 Email Fixes                              ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}10.${NC} 🖥️  OS-Specific Fixes                       ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}11.${NC} 📚 Documentation                            ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}12.${NC} ℹ️  System Information                       ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}13.${NC} 🔄 Update Menu Script                       ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}14.${NC} ❌ Exit                                     ${WHITE}║${NC}"
         echo -e "${WHITE}║                                                              ║${NC}"
         echo -e "${WHITE}╚══════════════════════════════════════════════════════════════╝${NC}"
         echo -e ""
-        printf "%s" "Please enter your choice [1-13]: "
+        printf "%s" "Please enter your choice [1-14]: "
         read choice
         
         case $choice in
@@ -534,18 +565,19 @@ show_main_menu() {
             6) run_mariadb_manager ;;
             7) run_app_version_managers ;;
             8) run_backup_restore ;;
-            9) run_os_specific ;;
-            10) show_documentation ;;
-            11) show_system_info ;;
-            12) update_menu ;;
-            13) 
+            9) run_email_fixes ;;
+            10) run_os_specific ;;
+            11) show_documentation ;;
+            12) show_system_info ;;
+            13) update_menu ;;
+            14) 
                 echo -e "\n${GREEN}Thank you for using CyberPanel Mods!${NC}"
                 echo -e "${BLUE}For support and updates, visit:${NC}"
                 echo -e "${CYAN}https://github.com/master3395/cyberpanel-mods${NC}"
                 exit 0
                 ;;
             *)
-                echo -e "\n${RED}Invalid option. Please enter a number between 1-13.${NC}"
+                echo -e "\n${RED}Invalid option. Please enter a number between 1-14.${NC}"
                 pause
                 ;;
         esac
