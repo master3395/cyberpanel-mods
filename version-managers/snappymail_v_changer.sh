@@ -1,8 +1,21 @@
 #!/bin/bash
 
-#Asks for snappy version
-echo "What version of snappymail do you want to use? (e.g 2.36.4) "
+# Try to fetch latest version from GitHub API
+echo "Fetching latest SnappyMail version from GitHub..."
+latest_version=$(curl -s https://api.github.com/repos/the-djmaze/snappymail/releases/latest | grep -o '"tag_name": "[^"]*' | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1)
+
+if [ -n "$latest_version" ]; then
+    echo "Latest version found: $latest_version"
+    default_version="$latest_version"
+else
+    echo "Failed to fetch latest version, using fallback: 2.38.2"
+    default_version="2.38.2"
+fi
+
+#Asks for snappy version (defaults to latest)
+echo "What version of snappymail do you want to use? (e.g $default_version) [default: $default_version]: "
 read SNAPPY_VERSION
+SNAPPY_VERSION=${SNAPPY_VERSION:-$default_version}
 
 #Create folder if doesn't exist
 if [[ ! -d /usr/local/CyberCP/public ]]; then

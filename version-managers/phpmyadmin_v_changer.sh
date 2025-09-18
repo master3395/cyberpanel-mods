@@ -1,8 +1,21 @@
 #!/bin/bash
 set -e
 
-# Asks for phpMyAdmin version
-read -p "What version of phpMyAdmin do you want to use? (e.g., 5.2.2): " phpmyadmin_version
+# Try to fetch latest version from GitHub API
+echo "Fetching latest phpMyAdmin version from GitHub..."
+latest_version=$(curl -s https://api.github.com/repos/phpmyadmin/phpmyadmin/releases/latest | grep -o '"tag_name": "[^"]*' | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1)
+
+if [ -n "$latest_version" ]; then
+    echo "Latest version found: $latest_version"
+    default_version="$latest_version"
+else
+    echo "Failed to fetch latest version, using fallback: 5.2.2"
+    default_version="5.2.2"
+fi
+
+# Asks for phpMyAdmin version (defaults to latest)
+read -p "What version of phpMyAdmin do you want to use? (e.g., $default_version) [default: $default_version]: " phpmyadmin_version
+phpmyadmin_version=${phpmyadmin_version:-$default_version}
 
 # Define constants
 dest_dir=/usr/local/CyberCP/public/phpmyadmin
