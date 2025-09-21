@@ -80,7 +80,6 @@ cyberpanel-mods/
 │
 ├── 📄 CHANGELOG.md             # Version history and changes
 ├── 📄 cyberpanel-mods-menu.sh  # Master menu system
-├── 📄 launch.sh                # Simple launcher script
 ├── 📄 ORGANIZATION.md          # Complete file organization guide
 └── 📄 README.md                # Main documentation
 ```

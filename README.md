@@ -126,7 +126,6 @@ cyberpanel-mods/
 │
 ├── 📄 CHANGELOG.md             # Version history and changes
 ├── 📄 cyberpanel-mods-menu.sh  # Master menu system
-├── 📄 launch.sh                # Simple launcher script
 ├── 📄 ORGANIZATION.md          # Complete file organization guide
 └── 📄 README.md                # Main documentation
 ```
@@ -139,6 +138,9 @@ The easiest way to use all CyberPanel mods is through our interactive master men
 ```bash
 # Download and run the master menu
 curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel-mods-menu.sh | bash
+
+# Or if you have the repository locally
+bash cyberpanel-mods-menu.sh
 ```
 
 The master menu provides:
