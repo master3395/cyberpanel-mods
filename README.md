@@ -1,3 +1,7 @@
+<div align="center">
+
+<img src="https://community.cyberpanel.net/uploads/default/original/1X/416fdec0e96357d11f7b2756166c61b1aeca5939.png" alt="CyberPanel Logo" width="500"/>
+
 # 🚀 CyberPanel Mods - Enhanced Repository
 
 [![OS Support](https://img.shields.io/badge/OS-Ubuntu%2020.04--24.04%20%7C%20AlmaLinux%208--10%20%7C%20RockyLinux%208--9%20%7C%20RHEL%208--9%20%7C%20CentOS%207--9%20%7C%20CloudLinux%207--8-blue)](https://cyberpanel.net)
@@ -8,6 +12,7 @@
 
 ## 🌟 Features
 
+- 👥 **User & Website Management** - Complete user-facing operations for hosting management
 - 🎯 **Master Menu Interface** - Interactive menu system for easy access to all mods
 - ✅ **Full OS Compatibility** - Works on all CyberPanel-supported operating systems
 - 🔧 **Enhanced Scripts** - Improved error handling, logging, and user experience
@@ -16,6 +21,7 @@
 - 🔄 **Auto-Update Support** - Scripts can check and update themselves
 - 📊 **Detailed Logging** - All operations are logged for troubleshooting
 - 🖥️ **System Monitoring** - Built-in system status and information display
+- 🎨 **Dual Interface** - Serves both end users and system administrators
 
 ## 🌐 Supported Operating Systems
 
@@ -84,6 +90,13 @@ cyberpanel-mods/
 │   ├── fix_ssl_missing_context.sh
 │   ├── reset_ols_adminpassword
 │   └── selfsigned_fixer.sh
+│
+├── 📁 user-management/         # User and website management tools ⭐ NEW!
+│   ├── cyberpanel-user-cli.sh
+│   ├── user-functions.sh
+│   ├── user-management-menu.sh
+│   ├── website-functions.sh
+│   └── README.md
 │
 ├── 📁 utilities/               # General utility scripts
 │   ├── cloudflare_to_powerdns.sh
@@ -180,20 +193,21 @@ curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cybe
 - **⏸️ Pause Function** - Easy navigation with pause between operations
 
 ### 📋 Menu Options
-1. **🔍 OS Compatibility Check** - Verify system compatibility
-2. **🛠️ Enhanced CyberPanel Utility** - All-in-one utility tool
-3. **🔧 Core Fixes & Repairs** - Fix common CyberPanel issues
-4. **🛡️ Security Hardening** - Comprehensive security setup
-5. **🐘 PHP Version Manager** - Manage PHP versions (7.1-8.4)
-6. **🗄️ MariaDB Version Manager** - Manage MariaDB versions (10.3-11.4)
-7. **📦 Application Version Managers** - Manage Snappymail, phpMyAdmin, ModSecurity
-8. **💾 Backup & Restore Tools** - Automated backup and restore
-9. **📧 Email Fixes** - Email-related fixes and enhancements
-10. **🖥️ OS-Specific Fixes** - Fixes for specific operating systems
-11. **📚 Documentation** - View all documentation
-12. **ℹ️ System Information** - Detailed system status
-13. **🔄 Update Menu Script** - Update to latest version
-14. **❌ Exit** - Exit the menu
+1. **👥 User & Website Management** - Complete user-facing operations ⭐ NEW!
+2. **🔍 OS Compatibility Check** - Verify system compatibility
+3. **🛠️ Enhanced CyberPanel Utility** - All-in-one utility tool
+4. **🔧 Core Fixes & Repairs** - Fix common CyberPanel issues
+5. **🛡️ Security Hardening** - Comprehensive security setup
+6. **🐘 PHP Version Manager** - Manage PHP versions (7.1-8.4)
+7. **🗄️ MariaDB Version Manager** - Manage MariaDB versions (10.3-11.4)
+8. **📦 Application Version Managers** - Manage Snappymail, phpMyAdmin, ModSecurity
+9. **💾 Backup & Restore Tools** - Automated backup and restore
+10. **📧 Email Fixes** - Email-related fixes and enhancements
+11. **🖥️ OS-Specific Fixes** - Fixes for specific operating systems
+12. **📚 Documentation** - View all documentation
+13. **ℹ️ System Information** - Detailed system status
+14. **🔄 Update Menu Script** - Update to latest version
+15. **❌ Exit** - Exit the menu
 
 ### 🚀 Quick Commands
 ```bash
@@ -206,6 +220,41 @@ curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cybe
 # Update menu script
 curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel-mods-menu.sh | bash -- --update
 ```
+
+## 👥 User & Website Management ⭐ NEW!
+
+### 🎯 Complete User-Facing Operations
+The integrated user management system brings comprehensive hosting management directly to CyberPanel Mods, serving both end users and administrators.
+
+**Based on cyberpanel-friendly-cli by Alfred Valderrama**
+
+**Features:**
+- **User Management** - Create, delete, suspend, edit users with ACL permissions
+- **Website Management** - Create/delete websites, child domains, PHP version changes
+- **Database Management** - MySQL/MariaDB database creation and management
+- **Email Management** - Email account creation, deletion, password changes
+- **FTP Management** - FTP account management with permissions
+- **SSL Management** - Automatic Let's Encrypt SSL certificate issuing
+- **DNS Management** - Complete DNS zone and record management
+- **Package Management** - Create and assign hosting packages
+- **Backup & Restore** - Website backup creation and restoration
+
+**Usage:**
+```bash
+# Access via main menu (option 1)
+curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel-mods-menu.sh | bash
+
+# Direct access to user management
+curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/user-management/user-management-menu.sh | bash
+
+# Full CLI interface (all 39 functions)
+curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/user-management/cyberpanel-user-cli.sh | bash
+```
+
+**Interface Options:**
+- **Simplified Menu** - 8 most common operations
+- **Full CLI** - Complete 39-function interface
+- **Integrated Access** - Seamless integration with admin tools
 
 ## 📚 Core Fixes
 
