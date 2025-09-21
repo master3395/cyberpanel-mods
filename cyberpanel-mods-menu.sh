@@ -142,6 +142,26 @@ show_system_status() {
     fi
 }
 
+# Function to run user management
+run_user_management() {
+    echo -e "\n${BLUE}Starting User & Website Management Interface...${NC}"
+    if [[ -f "user-management/user-management-menu.sh" ]]; then
+        bash user-management/user-management-menu.sh
+    else
+        echo -e "${YELLOW}User management not found locally, downloading...${NC}"
+        # Create directory if it doesn't exist
+        mkdir -p user-management
+        # Download the user management scripts
+        curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/user-management/user-management-menu.sh -o user-management/user-management-menu.sh
+        curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/user-management/user-functions.sh -o user-management/user-functions.sh
+        curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/user-management/website-functions.sh -o user-management/website-functions.sh
+        curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/user-management/cyberpanel-user-cli.sh -o user-management/cyberpanel-user-cli.sh
+        chmod +x user-management/*.sh
+        bash user-management/user-management-menu.sh
+    fi
+    pause
+}
+
 # Function to run OS compatibility check
 run_compatibility_check() {
     echo -e "\n${BLUE}Running OS compatibility check...${NC}"
@@ -536,48 +556,50 @@ show_main_menu() {
         echo -e "${WHITE}║                        MAIN MENU                           ║${NC}"
         echo -e "${WHITE}╠══════════════════════════════════════════════════════════════╣${NC}"
         echo -e "${WHITE}║                                                              ║${NC}"
-        echo -e "${WHITE}║  ${GREEN}1.${NC} 🔍 OS Compatibility Check                    ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}2.${NC} 🛠️  Enhanced CyberPanel Utility              ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}3.${NC} 🔧 Core Fixes & Repairs                      ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}4.${NC} 🛡️  Security Hardening                       ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}5.${NC} 🐘 PHP Version Manager                       ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}6.${NC} 🗄️  MariaDB Version Manager                  ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}7.${NC} 📦 Application Version Managers             ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}8.${NC} 💾 Backup & Restore Tools                   ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}9.${NC} 📧 Email Fixes                              ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}10.${NC} 🖥️  OS-Specific Fixes                       ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}11.${NC} 📚 Documentation                            ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}12.${NC} ℹ️  System Information                       ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}13.${NC} 🔄 Update Menu Script                       ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}14.${NC} ❌ Exit                                     ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}1.${NC} 👥 User & Website Management                 ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}2.${NC} 🔍 OS Compatibility Check                    ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}3.${NC} 🛠️  Enhanced CyberPanel Utility              ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}4.${NC} 🔧 Core Fixes & Repairs                      ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}5.${NC} 🛡️  Security Hardening                       ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}6.${NC} 🐘 PHP Version Manager                       ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}7.${NC} 🗄️  MariaDB Version Manager                  ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}8.${NC} 📦 Application Version Managers             ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}9.${NC} 💾 Backup & Restore Tools                   ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}10.${NC} 📧 Email Fixes                              ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}11.${NC} 🖥️  OS-Specific Fixes                       ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}12.${NC} 📚 Documentation                            ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}13.${NC} ℹ️  System Information                       ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}14.${NC} 🔄 Update Menu Script                       ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}15.${NC} ❌ Exit                                     ${WHITE}║${NC}"
         echo -e "${WHITE}║                                                              ║${NC}"
         echo -e "${WHITE}╚══════════════════════════════════════════════════════════════╝${NC}"
         echo -e ""
-        printf "%s" "Please enter your choice [1-14]: "
+        printf "%s" "Please enter your choice [1-15]: "
         read choice
         
         case $choice in
-            1) run_compatibility_check ;;
-            2) run_enhanced_utility ;;
-            3) run_core_fixes ;;
-            4) run_security_hardening ;;
-            5) run_php_manager ;;
-            6) run_mariadb_manager ;;
-            7) run_app_version_managers ;;
-            8) run_backup_restore ;;
-            9) run_email_fixes ;;
-            10) run_os_specific ;;
-            11) show_documentation ;;
-            12) show_system_info ;;
-            13) update_menu ;;
-            14) 
+            1) run_user_management ;;
+            2) run_compatibility_check ;;
+            3) run_enhanced_utility ;;
+            4) run_core_fixes ;;
+            5) run_security_hardening ;;
+            6) run_php_manager ;;
+            7) run_mariadb_manager ;;
+            8) run_app_version_managers ;;
+            9) run_backup_restore ;;
+            10) run_email_fixes ;;
+            11) run_os_specific ;;
+            12) show_documentation ;;
+            13) show_system_info ;;
+            14) update_menu ;;
+            15) 
                 echo -e "\n${GREEN}Thank you for using CyberPanel Mods!${NC}"
                 echo -e "${BLUE}For support and updates, visit:${NC}"
                 echo -e "${CYAN}https://github.com/master3395/cyberpanel-mods${NC}"
                 exit 0
                 ;;
             *)
-                echo -e "\n${RED}Invalid option. Please enter a number between 1-14.${NC}"
+                echo -e "\n${RED}Invalid option. Please enter a number between 1-15.${NC}"
                 pause
                 ;;
         esac

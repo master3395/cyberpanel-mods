@@ -45,6 +45,13 @@ cyberpanel-mods/
 │   ├── reset_ols_adminpassword
 │   └── selfsigned_fixer.sh
 │
+├── 📁 user-management/         # User and website management tools ⭐ NEW!
+│   ├── cyberpanel-user-cli.sh
+│   ├── user-functions.sh
+│   ├── user-management-menu.sh
+│   ├── website-functions.sh
+│   └── README.md
+│
 ├── 📁 utilities/               # General utility scripts
 │   ├── cloudflare_to_powerdns.sh
 │   ├── crowdsec_update.sh
@@ -74,6 +81,7 @@ cyberpanel-mods/
 ├── 📄 CHANGELOG.md             # Version history and changes
 ├── 📄 cyberpanel-mods-menu.sh  # Master menu system
 ├── 📄 launch.sh                # Simple launcher script
+├── 📄 ORGANIZATION.md          # Complete file organization guide
 └── 📄 README.md                # Main documentation
 ```
 
@@ -104,6 +112,13 @@ cyberpanel-mods/
 - **reset_ols_adminpassword** - Reset OpenLiteSpeed admin password
 - **selfsigned_fixer.sh** - Fix self-signed certificates
 - **cp_permissions.txt** - CyberPanel permissions reference
+
+### 👥 User Management (`user-management/`) ⭐ NEW!
+- **user-management-menu.sh** - Simplified user management interface
+- **cyberpanel-user-cli.sh** - Complete CLI interface (39 functions)
+- **user-functions.sh** - User creation, deletion, and management functions
+- **website-functions.sh** - Website and domain management functions
+- **README.md** - User management documentation
 
 ### 🛠️ Utilities (`utilities/`)
 - **cyberpanel_utility_enhanced.sh** - Enhanced CyberPanel utility
