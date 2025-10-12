@@ -2,6 +2,8 @@
 
 Welcome to the comprehensive documentation for CyberPanel Mods. This documentation provides detailed guides, troubleshooting information, and best practices for using the enhanced CyberPanel mods repository.
 
+> **Note:** The main [README.md](../README.md) has been reorganized to be a high-level overview. All detailed commands and usage instructions are now in this guides folder. See [README_REORGANIZATION.md](README_REORGANIZATION.md) for details.
+
 ## 📖 Documentation Index
 
 ### 🚀 Getting Started
