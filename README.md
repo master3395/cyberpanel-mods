@@ -10,6 +10,8 @@
 
 > **The most comprehensive collection of CyberPanel modifications, fixes, and utilities with full cross-platform compatibility**
 
+📚 **[Complete Documentation](guides/)** | 🚀 **[Installation Guide](guides/installation-guide.md)** | 🔧 **[Troubleshooting](guides/troubleshooting-guide.md)** | 🛡️ **[Security Guide](guides/security-best-practices.md)**
+
 ## 🌟 Features
 
 - 👥 **User & Website Management** - Complete user-facing operations for hosting management
@@ -23,538 +25,112 @@
 - 🖥️ **System Monitoring** - Built-in system status and information display
 - 🎨 **Dual Interface** - Serves both end users and system administrators
 
-## 🌐 Supported Operating Systems
-
-### ✅ Currently Supported
-- **Ubuntu 24.04.3** - Supported until April 2029 ⭐ NEW!
-- **Ubuntu 22.04** - Supported until April 2027
-- **Ubuntu 20.04** - Supported until April 2025
-- **AlmaLinux 10** - Supported until May 2030 ⭐ NEW!
-- **AlmaLinux 9** - Supported until May 2032
-- **AlmaLinux 8** - Supported until May 2029
-- **RockyLinux 9** - Supported until May 2032
-- **RockyLinux 8** - Supported until May 2029
-- **RHEL 9** - Supported until May 2032
-- **RHEL 8** - Supported until May 2029
-- **CloudLinux 8** - Supported until May 2029
-- **CentOS 9** - Supported until May 2027
-
-### 🔧 Third-Party OS Support
-- **Debian** - Community-supported with limited testing
-- **openEuler** - Community-supported with limited testing
-- **Other RHEL derivatives** - May work with AlmaLinux/RockyLinux packages
-
-## 📁 Repository Structure
-
-```
-cyberpanel-mods/
-├── 📁 backup-restore/           # Backup and restore tools
-│   ├── cyberpanel.sql
-│   ├── rclone_backup_cronjob.sh
-│   ├── rclone_sqlbackup_cronjob.sh
-│   └── restore_cyberpanel_database.sh
-│
-├── 📁 core-fixes/              # Core CyberPanel fixes and repairs
-│   ├── cyberpanel_core_fixes_enhanced.sh
-│   ├── cyberpanel_fix_symbolic_links.sh
-│   ├── fix_503_service_unavailable.sh
-│   ├── fix_missing_wp_cli.sh
-│   └── fixperms.sh
-│
-├── 📁 email-fixes/             # Email-related fixes and enhancements
-│   ├── sieve_fix_enhanced.sh
-│   ├── README.md
-│   ├── SIEVE_QUICK_GUIDE.md
-│   └── test_sieve_fix.sh
-│
-├── 📁 docs/                    # Comprehensive documentation
-│   ├── installation-guide.md
-│   ├── menu-demo.md
-│   ├── os-specific-notes.md
-│   ├── README.md
-│   ├── security-best-practices.md
-│   └── troubleshooting-guide.md
-│
-├── 📁 images/                  # Screenshots and documentation images
-│   └── (ready for images)
-│
-├── 📁 os-specific/             # OS-specific fixes and optimizations
-│   ├── cyberpanel_almalinux9_upgrade_fix.sh
-│   └── installCyberPanel_almalinux9_patch.py
-│
-├── 📁 security/                # Security-related scripts
-│   ├── cp_permissions.txt
-│   ├── cyberpanel_security_enhanced.sh
-│   ├── disable_2fa.sh
-│   ├── fix_permissions.sh
-│   ├── fix_ssl_missing_context.sh
-│   ├── reset_ols_adminpassword
-│   └── selfsigned_fixer.sh
-│
-├── 📁 user-management/         # User and website management tools ⭐ NEW!
-│   ├── cyberpanel-user-cli.sh
-│   ├── user-functions.sh
-│   ├── user-management-menu.sh
-│   ├── website-functions.sh
-│   └── README.md
-│
-├── 📁 utilities/               # General utility scripts
-│   ├── cloudflare_to_powerdns.sh
-│   ├── crowdsec_update.sh
-│   ├── cyberpanel_sessions_cronjob.sh
-│   ├── cyberpanel_sessions.sh
-│   ├── cyberpanel_utility_enhanced.sh
-│   ├── cyberpanel_utility.sh
-│   ├── defaultwebsitepage.html
-│   ├── defaultwebsitepage.sh
-│   ├── install_pureftpd.sh
-│   ├── install_vsftpd.sh
-│   ├── loader-wizard.php
-│   ├── lsmcd
-│   ├── os_compatibility_checker.sh
-│   └── wp
-│
-├── 📁 version-managers/        # Version management tools
-│   ├── mariadb_v_changer.sh
-│   ├── mariadb_version_manager_enhanced.sh
-│   ├── modsec_rules_v_changer.sh
-│   ├── php_version_manager_enhanced.sh
-│   ├── phpmod_v2.sh
-│   ├── phpmod.sh
-│   ├── phpmyadmin_v_changer.sh
-│   └── snappymail_v_changer.sh
-│
-├── 📄 CHANGELOG.md             # Version history and changes
-├── 📄 cyberpanel-mods-menu.sh  # Master menu system
-├── 📄 ORGANIZATION.md          # Complete file organization guide
-└── 📄 README.md                # Main documentation
-```
-
 ## 🚀 Quick Start
 
 ### 🎯 Master Menu (Recommended)
+
 The easiest way to use all CyberPanel mods is through our interactive master menu:
 
 ```bash
-# Download and run the master menu
 curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel-mods-menu.sh | bash
-
-# Or if you have the repository locally
-bash cyberpanel-mods-menu.sh
 ```
 
-The master menu provides:
-- 🎯 **Interactive interface** for all mods and utilities
-- 🔍 **System status** and compatibility checking
-- 🛠️ **One-click access** to all enhanced scripts
-- 📚 **Built-in documentation** viewer
-- 🔄 **Auto-update** functionality
-- 📊 **System information** display
+The master menu provides interactive access to all mods and utilities with a beautiful, user-friendly interface.
 
-### Alternative: Individual Scripts
+📖 **[See Full Installation Guide](guides/installation-guide.md)** for detailed setup instructions and all available commands.
 
-#### 1. OS Compatibility Check
-Before using any mods, check your system compatibility:
+### Quick Access Commands
 
 ```bash
+# Check system compatibility
 curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/os_compatibility_checker.sh | bash
-```
 
-#### 2. Enhanced CyberPanel Utility
-Use the enhanced utility script for common tasks:
-
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/cyberpanel_utility_enhanced.sh | bash
-```
-
-#### 3. Core Fixes
-Fix common CyberPanel issues:
-
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/cyberpanel_core_fixes_enhanced.sh | bash
-```
-
-## 🎯 Master Menu System
-
-### 🖥️ Interactive Master Menu
-The CyberPanel Mods Master Menu provides a beautiful, user-friendly interface to access all mods and utilities:
-
-```bash
-# Launch the master menu
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel-mods-menu.sh | bash
-```
-
-### ✨ Menu Features
-- **🎨 Beautiful Interface** - Color-coded, professional-looking menu system
-- **📊 System Status** - Real-time system health monitoring
-- **🔍 OS Detection** - Automatic operating system detection and compatibility
-- **🛠️ One-Click Access** - Direct access to all enhanced scripts
-- **📚 Built-in Documentation** - View documentation without leaving the menu
-- **🔄 Auto-Update** - Update the menu script itself
-- **ℹ️ System Information** - Detailed system information display
-- **⏸️ Pause Function** - Easy navigation with pause between operations
-
-### 📋 Menu Options
-1. **👥 User & Website Management** - Complete user-facing operations ⭐ NEW!
-2. **🔍 OS Compatibility Check** - Verify system compatibility
-3. **🛠️ Enhanced CyberPanel Utility** - All-in-one utility tool
-4. **🔧 Core Fixes & Repairs** - Fix common CyberPanel issues
-5. **🛡️ Security Hardening** - Comprehensive security setup
-6. **🐘 PHP Version Manager** - Manage PHP versions (7.1-8.4)
-7. **🗄️ MariaDB Version Manager** - Manage MariaDB versions (10.3-11.4)
-8. **📦 Application Version Managers** - Manage Snappymail, phpMyAdmin, ModSecurity
-9. **💾 Backup & Restore Tools** - Automated backup and restore
-10. **📧 Email Fixes** - Email-related fixes and enhancements
-11. **🖥️ OS-Specific Fixes** - Fixes for specific operating systems
-12. **📚 Documentation** - View all documentation
-13. **ℹ️ System Information** - Detailed system status
-14. **🔄 Update Menu Script** - Update to latest version
-15. **❌ Exit** - Exit the menu
-
-### 🚀 Quick Commands
-```bash
-# Show help
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel-mods-menu.sh | bash -- --help
-
-# Show system status only
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel-mods-menu.sh | bash -- --status
-
-# Update menu script
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel-mods-menu.sh | bash -- --update
-```
-
-## 👥 User & Website Management ⭐ NEW!
-
-### 🎯 Complete User-Facing Operations
-The integrated user management system brings comprehensive hosting management directly to CyberPanel Mods, serving both end users and administrators.
-
-**Based on cyberpanel-friendly-cli by Alfred Valderrama**
-
-**Features:**
-- **User Management** - Create, delete, suspend, edit users with ACL permissions
-- **Website Management** - Create/delete websites, child domains, PHP version changes
-- **Database Management** - MySQL/MariaDB database creation and management
-- **Email Management** - Email account creation, deletion, password changes
-- **FTP Management** - FTP account management with permissions
-- **SSL Management** - Automatic Let's Encrypt SSL certificate issuing
-- **DNS Management** - Complete DNS zone and record management
-- **Package Management** - Create and assign hosting packages
-- **Backup & Restore** - Website backup creation and restoration
-
-**Usage:**
-```bash
-# Access via main menu (option 1)
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel-mods-menu.sh | bash
-
-# Direct access to user management
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/user-management/user-management-menu.sh | bash
-
-# Full CLI interface (all 39 functions)
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/user-management/cyberpanel-user-cli.sh | bash
-```
-
-**Interface Options:**
-- **Simplified Menu** - 8 most common operations
-- **Full CLI** - Complete 39-function interface
-- **Integrated Access** - Seamless integration with admin tools
-
-## 📚 Core Fixes
-
-### 🔧 CyberPanel Core Fixes Enhanced
-Comprehensive fix for common CyberPanel issues across all supported OS versions.
-
-**Features:**
-- Fixes symbolic links
-- Corrects file permissions
-- Resolves SSL context issues
-- Fixes service problems
-- Database connectivity fixes
-- Python environment repairs
-- 503 error resolution
-- WP-CLI installation
-- Self-signed certificate fixes
-
-**Usage:**
-```bash
-# Run all fixes
+# Run core fixes
 curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/cyberpanel_core_fixes_enhanced.sh | bash
 
-# Run specific fixes
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/cyberpanel_core_fixes_enhanced.sh | bash -- --symbolic-links --permissions
+# Apply security hardening
+curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/security/cyberpanel_security_enhanced.sh | bash
 ```
 
-## 📧 Email Fixes
-
-### 🔧 Sieve (Filter) Fix for SnappyMail
-Comprehensive fix for Sieve email filtering functionality in SnappyMail.
-
-**Problem Solved:**
-When you install CyberPanel, you don't automatically install Sieve (Filter) with SnappyMail. This fix addresses this issue by installing and configuring all necessary components.
-
-**Features:**
-- ✅ **Cross-platform compatibility** - Works on all CyberPanel-supported operating systems
-- ✅ **Automatic package installation** - Installs dovecot-pigeonhole and related packages
-- ✅ **Firewall configuration** - Opens port 4190 and email-related ports
-- ✅ **Service management** - Properly configures and restarts Dovecot and Postfix
-- ✅ **Default filtering rules** - Creates basic spam and newsletter filtering
-- ✅ **Configuration backup** - Backs up existing configurations before changes
-- ✅ **Verification system** - Verifies installation and configuration
-
-**Supported OS:**
-- Ubuntu/Debian
-- AlmaLinux 8.x/9.x
-- RockyLinux 8.x/9.x
-- RHEL 8.x/9.x
-- CentOS 7.x/8.x
-- CloudLinux 7.x/8.x
-- openEuler
-
-**Usage:**
-```bash
-# Run the fix
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/email-fixes/sieve_fix_enhanced.sh | bash
-
-# Verify installation
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/email-fixes/sieve_fix_enhanced.sh | bash -- --verify
-
-# Force reinstallation
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/email-fixes/sieve_fix_enhanced.sh | bash -- --force
-```
-
-**What it fixes:**
-- Installs Sieve packages (dovecot-pigeonhole, dovecot-managesieved)
-- Configures Dovecot for Sieve support
-- Configures Postfix for LMTP delivery
-- Opens firewall port 4190 for Sieve management
-- Creates default email filtering rules
-- Sets up proper log files and directories
-
-## 🔄 Version Managers
-
-### 🐘 PHP Version Manager Enhanced
-Advanced PHP version management with full OS compatibility.
-
-**Features:**
-- Install/switch between PHP versions (7.1-8.4)
-- Interactive and command-line modes
-- Automatic dependency resolution
-- Service restart handling
-- Version status checking
-- Uninstall functionality
-
-**Usage:**
-```bash
-# Interactive mode
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/version-managers/php_version_manager_enhanced.sh | bash
-
-# Direct version change
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/version-managers/php_version_manager_enhanced.sh | bash 81
-
-# Check status
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/version-managers/php_version_manager_enhanced.sh | bash -- --status
-```
-
-### 🗄️ MariaDB Version Manager Enhanced
-Comprehensive MariaDB version management with backup support.
-
-**Features:**
-- Install/upgrade MariaDB versions (10.3-11.4)
-- Automatic data backup before changes
-- Service management
-- Security configuration
-- Connection testing
-- Rollback support
-
-**Usage:**
-```bash
-# Interactive mode
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/version-managers/mariadb_version_manager_enhanced.sh | bash
-
-# Install specific version
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/version-managers/mariadb_version_manager_enhanced.sh | bash 10.11
-
-# Check status
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/version-managers/mariadb_version_manager_enhanced.sh | bash -- --status
-```
-
-## 🛡️ Security Scripts
-
-### 🔐 Disable 2FA
-Remove two-factor authentication when access is lost.
-
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/security/disable_2fa.sh | bash
-```
-
-### 🔒 Fix SSL Context
-Fix missing acme-challenge context for SSL certificates.
-
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/security/fix_ssl_missing_context.sh | bash
-```
-
-### 🛠️ Fix Permissions
-Restore correct CyberPanel file permissions.
-
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/security/fix_permissions.sh | bash
-```
-
-## 🔧 Utilities
-
-### 🖥️ Enhanced CyberPanel Utility
-All-in-one utility for CyberPanel management.
-
-**Features:**
-- CyberPanel upgrades
-- Addon management (Redis, Memcached, PHP extensions)
-- WatchDog management
-- FAQ and help system
-- OS compatibility detection
-- Enhanced error handling
-
-**Usage:**
-```bash
-# Interactive mode
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/cyberpanel_utility_enhanced.sh | bash
-
-# Direct upgrade
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/cyberpanel_utility_enhanced.sh | bash upgrade
-```
-
-### 🔍 OS Compatibility Checker
-Comprehensive system compatibility verification.
-
-**Features:**
-- OS detection and validation
-- Package manager detection
-- System requirements check
-- Service availability check
-- Compatibility recommendations
-- Detailed reporting
-
-**Usage:**
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/os_compatibility_checker.sh | bash
-```
-
-## 📦 Version Management
-
-### 📧 Snappymail Version Changer
-Update Snappymail to specific versions.
-
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/version-managers/snappymail_v_changer.sh | bash
-```
-
-### 🗂️ phpMyAdmin Version Changer
-Update phpMyAdmin to specific versions.
-
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/version-managers/phpmyadmin_v_changer.sh | bash
-```
-
-### 🔥 ModSecurity Rules Changer
-Update OWASP ModSecurity rules to specific versions.
-
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/version-managers/modsec_rules_v_changer.sh | bash
-```
-
-## 🔄 Backup & Restore
-
-### 💾 RClone Backup Cronjob
-Automated backup using RClone.
-
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/backup-restore/rclone_backup_cronjob.sh | bash
-```
-
-### 🗄️ SQL Backup Cronjob
-Automated SQL database backup.
-
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/backup-restore/rclone_sqlbackup_cronjob.sh | bash
-```
-
-### 🔄 Restore CyberPanel Database
-Restore CyberPanel core database.
-
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/backup-restore/restore_cyberpanel_database.sh | bash
-```
-
-## 🖥️ OS-Specific Fixes
-
-### 🐧 AlmaLinux 9 Upgrade Fix
-Fix MariaDB issues during CyberPanel upgrade on AlmaLinux 9.
-
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/os-specific/cyberpanel_almalinux9_upgrade_fix.sh | bash
-```
-
-### 🔧 AlmaLinux 9 Patch
-Python patch for installCyberPanel.py on AlmaLinux 9.
-
-```bash
-curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/os-specific/installCyberPanel_almalinux9_patch.py | python3
-```
+📖 **For all commands and detailed usage, see the [Installation Guide](guides/installation-guide.md)**
 
 ## 📖 Documentation
 
-### 📚 User Guides
-- [Installation Guide](docs/installation-guide.md)
-- [Troubleshooting Guide](docs/troubleshooting-guide.md)
-- [Security Best Practices](docs/security-best-practices.md)
-- [OS-Specific Notes](docs/os-specific-notes.md)
+### 📚 Comprehensive Guides
 
-### 🖼️ Screenshots
-- [PHP Version Manager](images/php-version-manager.png)
-- [MariaDB Version Manager](images/mariadb-version-manager.png)
-- [OS Compatibility Checker](images/os-compatibility-checker.png)
+#### Getting Started
 
-## 🤝 Contributing
+- 🚀 **[Installation Guide](guides/installation-guide.md)** - Complete setup instructions
+- 🎯 **[Menu Demo](guides/menu-demo.md)** - Interactive menu walkthrough
+- 🔍 **[OS-Specific Notes](guides/os-specific-notes.md)** - Platform-specific information
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+#### Problem Solving
 
-### 🐛 Reporting Issues
-If you find a bug or have a feature request, please [open an issue](https://github.com/master3395/cyberpanel-mods/issues).
+- 🔧 **[Troubleshooting Guide](guides/troubleshooting-guide.md)** - Common issues and solutions
+- 🛡️ **[Security Best Practices](guides/security-best-practices.md)** - Complete security guide
+- 📊 **[OS Compatibility Analysis](guides/OS_COMPATIBILITY_ANALYSIS.md)** - System compatibility details
 
-### 🔧 Development
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test on multiple OS versions
-5. Submit a pull request
+#### Advanced Topics
+
+- 🐧 **[AlmaLinux 10 Installation](guides/ALMALINUX10_INSTALLATION_GUIDE.md)** - Latest release guide
+- 🔧 **[Core Fix Summary](guides/CORE_FIX_SUMMARY.md)** - Technical fix documentation
+- 📧 **[MailScanner Fix](guides/MAILSCANNER_ALMALINUX9_FIX.md)** - Email system fixes
+
+📚 **[View All Documentation](guides/)** for complete guides and technical details.
 
 ## 📋 Requirements
 
-- Root access
-- Internet connection
-- CyberPanel installed
-- Supported operating system
+- ✅ Root access to your server
+- ✅ Internet connection for downloads
+- ✅ CyberPanel installed and running
+- ✅ Supported operating system ([see full list](guides/os-specific-notes.md))
 
 ## ⚠️ Important Notes
 
 - **Always backup your data** before running any scripts
 - **Test in a non-production environment** first
 - **Read the documentation** before using any script
-- **Check OS compatibility** before installation
+- **Check OS compatibility** with our compatibility checker
+
+## 🤝 Contributing
+
+We welcome contributions! To contribute:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test on multiple OS versions
+5. Submit a pull request
+
+📖 **[Contributing Guide](CONTRIBUTING.md)** for detailed guidelines.
+
+### 🐛 Reporting Issues
+
+Found a bug? [Open an issue](https://github.com/master3395/cyberpanel-mods/issues) with:
+
+- Operating system details
+- Error messages
+- Steps to reproduce
+- Expected vs actual behavior
+
+## 📞 Support
+
+- 📚 **Documentation**: [guides/](guides/)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/master3395/cyberpanel-mods/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/master3395/cyberpanel-mods/discussions)
+- 🌐 **CyberPanel Community**: [Official Forums](https://forums.cyberpanel.net)
 
 ## 🔒 Security
 
 All scripts follow security best practices:
-- No hardcoded passwords
+
+- No hardcoded passwords or secrets
 - Secure file permissions
-- Input validation
-- Error handling
-- Logging for audit trails
+- Input validation and sanitization
+- Comprehensive error handling
+- Detailed logging for audit trails
 
-## 📞 Support
-
-- **Documentation**: [docs/](docs/)
-- **Issues**: [GitHub Issues](https://github.com/master3395/cyberpanel-mods/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/master3395/cyberpanel-mods/discussions)
+📖 **[Security Best Practices](guides/security-best-practices.md)** for complete security guide.
 
 ## 📄 License
 
@@ -562,17 +138,39 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- [CyberPanel Team](https://cyberpanel.net) for the amazing control panel
-- [Contributors](https://github.com/master3395/cyberpanel-mods/graphs/contributors) who help improve this project
-- Community members who report issues and suggest improvements
+- **[CyberPanel Team](https://cyberpanel.net)** - For the amazing control panel
+- **[Contributors](https://github.com/master3395/cyberpanel-mods/graphs/contributors)** - Who help improve this project
+- **Community Members** - Who report issues and suggest improvements
+- **Alfred Valderrama** - For cyberpanel-friendly-cli (user management base)
+
+## 📚 Quick Guide Reference
+
+### Essential Guides
+
+| Guide                  | Description                                  | Link                                                                |
+| ---------------------- | -------------------------------------------- | ------------------------------------------------------------------- |
+| 🚀 Installation Guide  | Complete setup and installation instructions | [guides/installation-guide.md](guides/installation-guide.md)           |
+| 🔧 Troubleshooting     | Common issues and solutions                  | [guides/troubleshooting-guide.md](guides/troubleshooting-guide.md)     |
+| 🛡️ Security Guide    | Comprehensive security best practices        | [guides/security-best-practices.md](guides/security-best-practices.md) |
+| 🖥️ OS-Specific Notes | Platform-specific information                | [guides/os-specific-notes.md](guides/os-specific-notes.md)             |
+| 🎯 Menu Demo           | Interactive menu walkthrough                 | [guides/menu-demo.md](guides/menu-demo.md)                             |
+
+### Technical Guides
+
+| Guide                  | Description                         | Link                                                                              |
+| ---------------------- | ----------------------------------- | --------------------------------------------------------------------------------- |
+| 🐧 AlmaLinux 10        | Latest release installation guide   | [guides/ALMALINUX10_INSTALLATION_GUIDE.md](guides/ALMALINUX10_INSTALLATION_GUIDE.md) |
+| 🔧 AlmaLinux 10 Fix    | Complete fix guide for AlmaLinux 10 | [guides/ALMALINUX10_COMPLETE_FIX_GUIDE.md](guides/ALMALINUX10_COMPLETE_FIX_GUIDE.md) |
+| 📧 MailScanner Fix     | Email system fixes for AlmaLinux 9  | [guides/MAILSCANNER_ALMALINUX9_FIX.md](guides/MAILSCANNER_ALMALINUX9_FIX.md)         |
+| 🔧 Core Fix Summary    | Technical fix documentation         | [guides/CORE_FIX_SUMMARY.md](guides/CORE_FIX_SUMMARY.md)                             |
+| 📊 OS Compatibility    | System compatibility analysis       | [guides/OS_COMPATIBILITY_ANALYSIS.md](guides/OS_COMPATIBILITY_ANALYSIS.md)           |
+| 🔧 Comprehensive Fixes | All OS fixes documentation          | [guides/COMPREHENSIVE_OS_FIXES.md](guides/COMPREHENSIVE_OS_FIXES.md)                 |
+| 🎯 API Access Feature  | API access tab documentation        | [guides/API_ACCESS_TAB_FEATURE.md](guides/API_ACCESS_TAB_FEATURE.md)                 |
+
+📚 **[Browse All Guides](guides/)** in the guides folder for complete documentation.
 
 ---
 
-<div align="center">
-
-**⭐ Star this repository if you find it helpful! ⭐**
-
-[![GitHub stars](https://img.shields.io/github/stars/master3395/cyberpanel-mods?style=social)](https://github.com/master3395/cyberpanel-mods)
-[![GitHub forks](https://img.shields.io/github/forks/master3395/cyberpanel-mods?style=social)](https://github.com/master3395/cyberpanel-mods)
+**Made with ❤️ for the CyberPanel Community**
 
 </div>
