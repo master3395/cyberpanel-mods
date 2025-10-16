@@ -515,35 +515,33 @@ install_php_memcached() {
     exit
 }
 
-# New function to install additional PHP versions
+# New function to install additional PHP versions (7.4+ for AlmaLinux 8+ compatibility)
 install_php_versions() {
-    echo -e "\n${CYAN}Available PHP versions for installation:${NC}"
-    echo -e "1. PHP 7.1"
-    echo -e "2. PHP 7.2"
-    echo -e "3. PHP 7.3"
-    echo -e "4. PHP 7.4"
-    echo -e "5. PHP 8.0"
-    echo -e "6. PHP 8.1"
-    echo -e "7. PHP 8.2"
-    echo -e "8. PHP 8.3"
-    echo -e "9. PHP 8.4"
+    echo -e "\n${CYAN}Available PHP versions for installation (AlmaLinux 8+ compatible):${NC}"
+    echo -e "1. PHP 7.4"
+    echo -e "2. PHP 8.0"
+    echo -e "3. PHP 8.1"
+    echo -e "4. PHP 8.2"
+    echo -e "5. PHP 8.3"
+    echo -e "6. PHP 8.4"
+    echo -e "7. PHP 8.5"
+    echo -e "8. PHP 8.6"
     echo -e "0. Back to Main Menu"
     echo -e "\n"
-    printf "%s" "Please enter number [0-9]: "
+    printf "%s" "Please enter number [0-8]: "
     read PHP_VERSION
 
     case $PHP_VERSION in
-        1) install_specific_php "71" "7.1" ;;
-        2) install_specific_php "72" "7.2" ;;
-        3) install_specific_php "73" "7.3" ;;
-        4) install_specific_php "74" "7.4" ;;
-        5) install_specific_php "80" "8.0" ;;
-        6) install_specific_php "81" "8.1" ;;
-        7) install_specific_php "82" "8.2" ;;
-        8) install_specific_php "83" "8.3" ;;
-        9) install_specific_php "84" "8.4" ;;
+        1) install_specific_php "74" "7.4" ;;
+        2) install_specific_php "80" "8.0" ;;
+        3) install_specific_php "81" "8.1" ;;
+        4) install_specific_php "82" "8.2" ;;
+        5) install_specific_php "83" "8.3" ;;
+        6) install_specific_php "84" "8.4" ;;
+        7) install_specific_php "85" "8.5" ;;
+        8) install_specific_php "86" "8.6" ;;
         0) main_page ;;
-        *) echo -e "${RED}Please enter the right number [0-9]${NC}\n"; install_php_versions ;;
+        *) echo -e "${RED}Please enter the right number [0-8]${NC}\n"; install_php_versions ;;
     esac
 }
 

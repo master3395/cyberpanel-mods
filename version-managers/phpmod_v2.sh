@@ -16,7 +16,7 @@ echo -e "${CYAN}  🛠️  For phpMyAdmin / Snappymail Management ${RESET}"
 echo -e "${MAGENTA}==============================================${RESET}\n"
 
 # إدخال المستخدم مع لون مميز
-read -r -p $'\e[38;5;208mChoose PHP version [71-72-73-74-80-81-82-83-84]: \e[0m' Input_Number
+read -r -p $'\e[38;5;208mChoose PHP version [74-80-81-82-83-84-85-86]: \e[0m' Input_Number
 echo ""
 
 # وظيفة التثبيت مع مؤشر تقدم
@@ -52,18 +52,17 @@ change_php_version() {
 
 # معالجة الخيارات
 case "$Input_Number" in
-  71) change_php_version 71 "7.1" ;;
-  72) change_php_version 72 "7.2" ;;
-  73) change_php_version 73 "7.3" ;;
   74) change_php_version 74 "7.4" ;;
   80) change_php_version 80 "8.0" ;;
   81) change_php_version 81 "8.1" ;;
   82) change_php_version 82 "8.2" ;;
   83) change_php_version 83 "8.3" ;;
   84) change_php_version 84 "8.4" ;;
+  85) change_php_version 85 "8.5" ;;
+  86) change_php_version 86 "8.6" ;;
   *)
     echo -e "${RED}❌ Invalid input! Please choose from:${RESET}"
-    echo -e "${CYAN}[71-72-73-74-80-81-82-83-84]${RESET}"
+    echo -e "${CYAN}[74-80-81-82-83-84-85-86]${RESET}"
     exit 1
   ;;
 esac

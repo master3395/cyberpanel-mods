@@ -78,18 +78,17 @@ check_root() {
     fi
 }
 
-# Function to list available PHP versions
+# Function to list available PHP versions (7.4+ for AlmaLinux 8+ compatibility)
 list_available_versions() {
     echo -e "\n${CYAN}Available PHP versions:${NC}"
-    echo -e "${GREEN}• PHP 7.1 (71)${NC}"
-    echo -e "${GREEN}• PHP 7.2 (72)${NC}"
-    echo -e "${GREEN}• PHP 7.3 (73)${NC}"
     echo -e "${GREEN}• PHP 7.4 (74)${NC}"
     echo -e "${GREEN}• PHP 8.0 (80)${NC}"
     echo -e "${GREEN}• PHP 8.1 (81)${NC}"
     echo -e "${GREEN}• PHP 8.2 (82)${NC}"
     echo -e "${GREEN}• PHP 8.3 (83)${NC}"
     echo -e "${GREEN}• PHP 8.4 (84)${NC}"
+    echo -e "${GREEN}• PHP 8.5 (85)${NC}"
+    echo -e "${GREEN}• PHP 8.6 (86)${NC}"
     echo -e ""
 }
 
