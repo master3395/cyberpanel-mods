@@ -4,7 +4,7 @@ echo "Default PHP version changer for cyberpanel apps"
 echo "Version chosen here will be used for phpmyadmin / snappymail"
 echo ""
 
-read -r -p "Choose one of the following php versions [71-72-73-74-80-81-82-83-84-85]: " Input_Number
+read -r -p "Choose one of the following php versions [74-80-81-82-83-84-85-86]: " Input_Number
 echo ""
 
 install_php_version() {
@@ -31,9 +31,6 @@ change_php_version() {
 }
 
 case "$Input_Number" in
-  71) change_php_version 71 "7.1" ;;
-  72) change_php_version 72 "7.2" ;;
-  73) change_php_version 73 "7.3" ;;
   74) change_php_version 74 "7.4" ;;
   80) change_php_version 80 "8.0" ;;
   81) change_php_version 81 "8.1" ;;
@@ -41,8 +38,9 @@ case "$Input_Number" in
   83) change_php_version 83 "8.3" ;;
   84) change_php_version 84 "8.4" ;;
   85) change_php_version 85 "8.5" ;;
+  86) change_php_version 86 "8.6" ;;
   *)
-    echo -e "Please write PHP version in the following format [71-72-73-74-80-81-82-83-84-85]\n"
+    echo -e "Please write PHP version in the following format [74-80-81-82-83-84-85-86]\n"
     exit 1
   ;;
 esac
