@@ -681,7 +681,7 @@ function required_loader($unamestr = '')
     $os_code_h = ($os_code == 'dar' ? 'mac' : $os_code);
 
     $loader_sfix = (($os_code == 'win') ? 'dll' : 'so');
-    $file = "ioncube_loader_${os_code_h}_${php_major_version}.${loader_sfix}";
+    $file = "ioncube_loader_{$os_code_h}_{$php_major_version}.{$loader_sfix}";
 
     if ($os_code == 'win') {
         $os_name = 'Windows';
@@ -697,7 +697,7 @@ function required_loader($unamestr = '')
             $os_name = $os_names[0];
             $os_name_qual = $os_name;
         }
-        $file_ts = "ioncube_loader_${os_code_h}_${php_major_version}_ts.${loader_sfix}";
+        $file_ts = "ioncube_loader_{$os_code_h}_{$php_major_version}_ts.{$loader_sfix}";
     }
 
     return array(
@@ -1086,7 +1086,7 @@ function get_loader_name()
     $php_family = substr($php_version,0,3);
 
     $loader_sfix = (($os_code == 'win') ? '.dll' : (($sys['THREAD_SAFE'])?'_ts.so':'.so'));
-    $loader_name="ioncube_loader_${os_code_h}_${php_family}${loader_sfix}";
+    $loader_name="ioncube_loader_{$os_code_h}_{$php_family}{$loader_sfix}";
 
     return $loader_name;
 }
@@ -1224,7 +1224,7 @@ function all_ini_contents()
     $sys = get_sysinfo();
     $output = '';
 
-    $output .= ";;; *MAIN INI FILE AT ${sys['PHP_INI']}* ;;;" . PHP_EOL;
+    $output .= ";;; *MAIN INI FILE AT {$sys['PHP_INI']}* ;;;" . PHP_EOL;
     $output .= get_file_contents($sys['PHP_INI']);
     $other_inis = get_additional_ini_files();
     foreach ($other_inis as $inif) {
@@ -1615,6 +1615,7 @@ function unix_package_name()
     $sysinfo = get_sysinfo();
     $loader = get_loaderinfo();
     $multiple_os_versions = false;
+    $exact_match = false;
     if (is_array($loader) && array_key_exists('osvariants',$loader) && is_array($loader['osvariants'])) {
         $versions = array_values($loader['osvariants']);
         $multiple_os_versions = !empty($versions[0]);
@@ -1629,7 +1630,7 @@ function unix_package_name()
     } else {
         $basename = LOADERS_PACKAGE_PREFIX . $loader['oscode'] . '_' . $loader['arch'];
     }
-    return array($basename,$multiple_os_versions);
+    return array($basename,$multiple_os_versions,$exact_match);
 }
 
 function loader_download_instructions()
@@ -1653,10 +1654,10 @@ function loader_download_instructions()
             echo '<li>Download a Windows Loaders archive from <a href="' . LOADERS_PAGE  . '" target=loaders>here</a>. If PHP is built with thread safety disabled, use the Windows non-TS Loaders.';
         }
     } else {
-        list($basename,$multiple_os_versions) = unix_package_name(); 
+        list($basename,$multiple_os_versions,$exact_match) = unix_package_name(); 
         if ($basename == "") {
             echo '<li>Download a ' . $loader['osname'] . ' ' . $loader['arch'] . ' Loaders archive from <a href="' . LOADERS_PAGE . '" target="loaders">here</a>.';
-            echo "<br>Your system appears to be ${loader['osnamequal']} for ${loader['wordsize']} bit. If Loaders are not available for that exact release of ${loader['osname']}, Loaders built for an earlier release should work. Note that you may need to install back compatibility libraries for the operating system.";
+            echo "<br>Your system appears to be {$loader['osnamequal']} for {$loader['wordsize']} bit. If Loaders are not available for that exact release of {$loader['osname']}, Loaders built for an earlier release should work. Note that you may need to install back compatibility libraries for the operating system.";
             echo '<br>If you cannot find a suitable loader then please raise a ticket at <a href="'. SUPPORT_SITE . '">our support helpdesk</a>.';
         } else {
             echo '<li>Download one of the following archives of Loaders for ' . $loader['osnamequal'] . ' ' . $loader['arch'] . ':'; 
@@ -1668,7 +1669,7 @@ function loader_download_instructions()
             echo make_archive_list($basename,$archives);
             echo "</p>";
             if ($multiple_os_versions && !$exact_match) {
-                echo "<p>Note that you may need to install back compatibility libraries for  ${loader['osname']}.</p>";
+                echo "<p>Note that you may need to install back compatibility libraries for  {$loader['osname']}.</p>";
             }
         }
     }
@@ -1913,12 +1914,12 @@ function zend_extension_instructions($server_type,$loader_dir)
         }
     } elseif (!empty($sysinfo['PHP_INI'])) {
         if (empty($sysinfo['PHP_INI_DIR'])) {
-            echo "<li>Edit the file <code>${sysinfo['PHP_INI']}</code>";
+            echo "<li>Edit the file <code>{$sysinfo['PHP_INI']}</code>";
         } else {
             $php_ini_path = find_additional_ioncube_ini();
             if (empty($php_ini_path)) {
                 $php_ini_name = ADDITIONAL_INI_FILE_NAME;
-                echo "<li><a href=\"$base&amp;page=phpconfig&amp;download=1&amp;newlinesonly=1&amp;ininame=$php_ini_name&amp;stype=$server_type_code\">Save this $php_ini_name file</a> and put it in your ini files directory, <code>${sysinfo['PHP_INI_DIR']}</code>";
+                echo "<li><a href=\"$base&amp;page=phpconfig&amp;download=1&amp;newlinesonly=1&amp;ininame=$php_ini_name&amp;stype=$server_type_code\">Save this $php_ini_name file</a> and put it in your ini files directory, <code>{$sysinfo['PHP_INI_DIR']}</code>";
                 $editing_ini = false;
             } else {
                 $php_ini_name = basename($php_ini_path);
@@ -1951,7 +1952,7 @@ function server_restart_instructions()
 		if ($sysinfo['SS'] == 'PHP-FPM') {
 			echo "<li>Restart PHP-FPM.</li>";
 		} else {
-			echo "<li>Restart the ${sysinfo['SS']} server software.</li>";
+			echo "<li>Restart the {$sysinfo['SS']} server software.</li>";
 		}
     } else {
         echo "<li>Restart the server software.</li>";
@@ -2534,7 +2535,7 @@ function loader_compatibility_test($loader_location)
                 $loader_compiler = 'VC6';
             }
             if ($loader_compiler != $sysinfo['PHP_COMPILER']) {
-                $errors[ERROR_LOADER_WIN_COMPILER_MISMATCH] = "Your loader was built using $loader_compiler but you need the loader built using ${sysinfo['PHP_COMPILER']}.";
+                $errors[ERROR_LOADER_WIN_COMPILER_MISMATCH] = "Your loader was built using $loader_compiler but you need the loader built using {$sysinfo['PHP_COMPILER']}.";
             }
         }
     } else {
@@ -2744,7 +2745,7 @@ function run()
         $page = get_default_page();
     } 
 
-    $fn = "${page}_page";
+    $fn = "{$page}_page";
     $fn();
 
     @session_write_close();
@@ -3082,7 +3083,7 @@ function loader_already_installed($rtl = null)
     } else {
         echo '<p>The ionCube Loader version ' . $lv . $php_str . ' is already installed and encoded files should run without problems.</p>'; 
         echo '</div>';
-        $is_legacy_loader = loader_major_version_instructions($mv,true);
+        $is_legacy_loader = loader_major_version_instructions($mv);
         if ($is_legacy_loader) {
             loader_upgrade_instructions($lv,true);
         }
@@ -3515,9 +3516,9 @@ function ini_loader_warnings()
     } else {
         $loader_dir_pair = correct_loader_wrong_location();
         if (!empty($loader_dir_pair)) {
-            $advice = "The correct loader for your system has been found at <code>${loader_dir_pair['loader']}</code>."; 
+            $advice = "The correct loader for your system has been found at <code>{$loader_dir_pair['loader']}</code>."; 
             if ($loader_dir_pair['loader'] != $loader_dir_pair['newloc']) {
-                $advice .= " Please copy the loader from <code>${loader_dir_pair['loader']}</code> to <code>${loader_dir_pair['newloc']}</code>.";
+                $advice .= " Please copy the loader from <code>{$loader_dir_pair['loader']}</code> to <code>{$loader_dir_pair['newloc']}</code>.";
             }
             $warnings[] = $advice;
         }
