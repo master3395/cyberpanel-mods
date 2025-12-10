@@ -303,8 +303,8 @@ def fix_virtual_host_utilities():
         
         # Fix 4: Improve domain mismatch error message
         pattern4 = r"message = 'Domain that you have provided is not configured as rDNS for your server IP\. \[404\]'"
-        replacement4 = r'''rDNS_list_str = ', '.join(rDNS) if rDNS else 'none'
-                message = f'Domain "{Domain}" that you have provided is not configured as rDNS for your server IP {serverIP}. Current rDNS records: {rDNS_list_str}. Please configure rDNS (PTR record) for your IP address to point to "{Domain}" with your hosting provider, or select "Skip rDNS/PTR Check" if you do not need email services. [404]''''
+        replacement4 = r"""rDNS_list_str = ', '.join(rDNS) if rDNS else 'none'
+                message = f'Domain "{Domain}" that you have provided is not configured as rDNS for your server IP {serverIP}. Current rDNS records: {rDNS_list_str}. Please configure rDNS (PTR record) for your IP address to point to "{Domain}" with your hosting provider, or select "Skip rDNS/PTR Check" if you do not need email services. [404]'"""
         
         if re.search(pattern4, content):
             content = re.sub(pattern4, replacement4, content)
