@@ -59,6 +59,44 @@ cp "$VIRTUAL_HOST_UTILITIES" "${BACKUP_DIR}/virtualHostUtilities.py"
 echo -e "${GREEN}Backup created at: ${BACKUP_DIR}${NC}"
 echo ""
 
+# Check if file has syntax errors (from previous failed run)
+echo -e "${YELLOW}Checking for existing syntax errors...${NC}"
+if python3 -m py_compile "$MAIL_UTILITIES" 2>/dev/null; then
+    echo -e "${GREEN}✓ mailUtilities.py syntax is valid${NC}"
+else
+    echo -e "${RED}✗ mailUtilities.py has syntax errors!${NC}"
+    echo -e "${YELLOW}Restoring from backup if available...${NC}"
+    # Try to find and restore from most recent backup
+    LATEST_BACKUP=$(ls -td ${CYBERCP_PATH}/backup_rdns_fix_* 2>/dev/null | head -1)
+    if [ -n "$LATEST_BACKUP" ] && [ -f "${LATEST_BACKUP}/mailUtilities.py" ]; then
+        cp "${LATEST_BACKUP}/mailUtilities.py" "$MAIL_UTILITIES"
+        echo -e "${GREEN}✓ Restored from ${LATEST_BACKUP}${NC}"
+    else
+        echo -e "${RED}✗ No backup found. You may need to restore manually.${NC}"
+        echo -e "${YELLOW}Continuing with fix attempt...${NC}"
+    fi
+fi
+echo ""
+
+# Check if file has syntax errors (from previous failed run)
+echo -e "${YELLOW}Checking for existing syntax errors...${NC}"
+if python3 -m py_compile "$MAIL_UTILITIES" 2>/dev/null; then
+    echo -e "${GREEN}✓ mailUtilities.py syntax is valid${NC}"
+else
+    echo -e "${RED}✗ mailUtilities.py has syntax errors!${NC}"
+    echo -e "${YELLOW}Restoring from backup if available...${NC}"
+    # Try to find and restore from most recent backup
+    LATEST_BACKUP=$(ls -td ${CYBERCP_PATH}/backup_rdns_fix_* 2>/dev/null | head -1)
+    if [ -n "$LATEST_BACKUP" ] && [ -f "${LATEST_BACKUP}/mailUtilities.py" ]; then
+        cp "${LATEST_BACKUP}/mailUtilities.py" "$MAIL_UTILITIES"
+        echo -e "${GREEN}✓ Restored from ${LATEST_BACKUP}${NC}"
+    else
+        echo -e "${RED}✗ No backup found. You may need to restore manually.${NC}"
+        echo -e "${YELLOW}Continuing with fix attempt...${NC}"
+    fi
+fi
+echo ""
+
 # Apply fixes using Python
 echo -e "${YELLOW}Applying comprehensive fixes...${NC}"
 
@@ -86,148 +124,13 @@ def fix_mail_utilities():
             content
         )
         
-        # Fix 2: Replace the entire reverse_dns_lookup function with improved version
-        # Find the function start
-        func_start_pattern = r'(@staticmethod\s+def reverse_dns_lookup\(ip_address\):.*?)(?=\n    @staticmethod|\n    def |\Z)'
-        
-        fixed_function = '''    @staticmethod
-    def reverse_dns_lookup(ip_address):
-        """
-        Perform reverse DNS lookup for the given IP address using external DNS servers.
-        
-        Args:
-            ip_address: The IP address to perform reverse DNS lookup on
-            
-        Returns:
-            list: List of rDNS hostnames found, or empty list if lookup fails
-        """
-        try:
-            import requests
-            from requests.exceptions import RequestException, Timeout, ConnectionError
-
-            # Fetch DNS server URLs with proper error handling
-            try:
-                fetchURLs = requests.get('https://cyberpanel.net/dnsServers.txt', timeout=10)
-            except (ConnectionError, Timeout) as e:
-                logging.CyberCPLogFileWriter.writeToFile(f'Failed to fetch DNS server list from cyberpanel.net: {str(e)}')
-                return []
-            except RequestException as e:
-                logging.CyberCPLogFileWriter.writeToFile(f'Request error while fetching DNS server list: {str(e)}')
-                return []
-
-            if fetchURLs.status_code != 200:
-                logging.CyberCPLogFileWriter.writeToFile(f'Failed to fetch DNS server list: HTTP {fetchURLs.status_code}')
-                return []
-
-            try:
-                urls_data = fetchURLs.json()
-                if 'urls' not in urls_data:
-                    logging.CyberCPLogFileWriter.writeToFile('DNS server list response missing "urls" key')
-                    return []
-                urls = urls_data['urls']
-            except (ValueError, KeyError) as e:
-                logging.CyberCPLogFileWriter.writeToFile(f'Failed to parse DNS server list JSON: {str(e)}')
-                return []
-
-            if not isinstance(urls, list) or len(urls) == 0:
-                logging.CyberCPLogFileWriter.writeToFile('DNS server list is empty or invalid')
-                return []
-
-            if os.path.exists(ProcessUtilities.debugPath):
-                logging.CyberCPLogFileWriter.writeToFile(f'DNS urls {urls}.')
-
-            results = []
-            successful_queries = 0
-
-            # Query each DNS server
-            for url in urls:
-                try:
-                    response = requests.get(f'{url}/index.php?ip={ip_address}', timeout=5)
-
-                    if os.path.exists(ProcessUtilities.debugPath):
-                        logging.CyberCPLogFileWriter.writeToFile(f'url to call {ip_address} is {url}')
-
-                    if response.status_code == 200:
-                        try:
-                            data = response.json()
-
-                            if os.path.exists(ProcessUtilities.debugPath):
-                                logging.CyberCPLogFileWriter.writeToFile(f'response from dns system {str(data)}')
-
-                            # Validate response structure
-                            if not isinstance(data, dict):
-                                logging.CyberCPLogFileWriter.writeToFile(f'Invalid response format from {url}: not a dictionary')
-                                continue
-
-                            if 'status' not in data:
-                                logging.CyberCPLogFileWriter.writeToFile(f'Response from {url} missing "status" key')
-                                continue
-
-                            if data['status'] == 1:
-                                # Validate results structure
-                                if 'results' not in data or not isinstance(data['results'], dict):
-                                    logging.CyberCPLogFileWriter.writeToFile(f'Response from {url} missing or invalid "results" key')
-                                    continue
-
-                                results_dict = data['results']
-                                
-                                # Safely extract results from different DNS servers
-                                dns_servers = ['8.8.8.8', '1.1.1.1', '9.9.9.9']
-                                for dns_server in dns_servers:
-                                    if dns_server in results_dict:
-                                        result_value = results_dict[dns_server]
-                                        if result_value and result_value not in results:
-                                            results.append(result_value)
-                                
-                                successful_queries += 1
-                            else:
-                                if os.path.exists(ProcessUtilities.debugPath):
-                                    logging.CyberCPLogFileWriter.writeToFile(f'DNS server {url} returned status != 1: {data.get("status", "unknown")}')
-                        except ValueError as e:
-                            logging.CyberCPLogFileWriter.writeToFile(f'Failed to parse JSON response from {url}: {str(e)}')
-                            continue
-                        except KeyError as e:
-                            logging.CyberCPLogFileWriter.writeToFile(f'Missing key in response from {url}: {str(e)}')
-                            continue
-                    else:
-                        if os.path.exists(ProcessUtilities.debugPath):
-                            logging.CyberCPLogFileWriter.writeToFile(f'DNS server {url} returned HTTP {response.status_code}')
-                except Timeout as e:
-                    logging.CyberCPLogFileWriter.writeToFile(f'Timeout while querying DNS server {url}: {str(e)}')
-                    continue
-                except ConnectionError as e:
-                    logging.CyberCPLogFileWriter.writeToFile(f'Connection error while querying DNS server {url}: {str(e)}')
-                    continue
-                except RequestException as e:
-                    logging.CyberCPLogFileWriter.writeToFile(f'Request error while querying DNS server {url}: {str(e)}')
-                    continue
-                except Exception as e:
-                    logging.CyberCPLogFileWriter.writeToFile(f'Unexpected error while querying DNS server {url}: {str(e)}')
-                    continue
-
-            if os.path.exists(ProcessUtilities.debugPath):
-                logging.CyberCPLogFileWriter.writeToFile(f'rDNS result of {ip_address} is {str(results)} (successful queries: {successful_queries}/{len(urls)})')
-
-            # Return results (empty list if no successful queries)
-            return results
-            
-        except ImportError as e:
-            logging.CyberCPLogFileWriter.writeToFile(f'Failed to import requests library: {str(e)}')
-            return []
-        except BaseException as e:
-            logging.CyberCPLogFileWriter.writeToFile(f'Unexpected error in reverse_dns_lookup for IP {ip_address}: {str(e)}')
-            return []'''
-        
-        # Try to replace the function
-        if re.search(func_start_pattern, content, re.DOTALL):
-            content = re.sub(func_start_pattern, fixed_function + '\n', content, flags=re.DOTALL)
-            print("✓ Replaced entire reverse_dns_lookup function")
-        elif "str(msg)" in content:
-            # Fallback: just fix the NameError if function replacement didn't work
+        # Fix 2: Just fix the critical NameError bug (safer than replacing entire function)
+        # This avoids indentation issues that can break the file
+        if "str(msg)" in content:
             content = content.replace("str(msg)", "str(e)")
             print("✓ Fixed NameError bug (str(msg) -> str(e))")
         else:
-            print("⚠ Function may already be fixed or structure differs")
+            print("⚠ NameError fix not needed (may already be fixed)")
         
         if content != original_content:
             with open(mail_utils, 'w') as f:
@@ -338,6 +241,33 @@ if [ $? -eq 0 ]; then
     echo -e "${GREEN}✓ All fixes applied successfully${NC}"
 else
     echo -e "${RED}✗ Some fixes may have failed. Check output above.${NC}"
+    exit 1
+fi
+
+# Validate Python syntax after fixes
+echo ""
+echo -e "${YELLOW}Validating Python syntax...${NC}"
+if python3 -m py_compile "$MAIL_UTILITIES" 2>/dev/null; then
+    echo -e "${GREEN}✓ mailUtilities.py syntax is valid${NC}"
+else
+    echo -e "${RED}✗ mailUtilities.py has syntax errors after fix!${NC}"
+    echo -e "${YELLOW}Restoring from backup...${NC}"
+    if [ -f "${BACKUP_DIR}/mailUtilities.py" ]; then
+        cp "${BACKUP_DIR}/mailUtilities.py" "$MAIL_UTILITIES"
+        echo -e "${GREEN}✓ Restored from backup${NC}"
+    fi
+    exit 1
+fi
+
+if python3 -m py_compile "$VIRTUAL_HOST_UTILITIES" 2>/dev/null; then
+    echo -e "${GREEN}✓ virtualHostUtilities.py syntax is valid${NC}"
+else
+    echo -e "${RED}✗ virtualHostUtilities.py has syntax errors after fix!${NC}"
+    echo -e "${YELLOW}Restoring from backup...${NC}"
+    if [ -f "${BACKUP_DIR}/virtualHostUtilities.py" ]; then
+        cp "${BACKUP_DIR}/virtualHostUtilities.py" "$VIRTUAL_HOST_UTILITIES"
+        echo -e "${GREEN}✓ Restored from backup${NC}"
+    fi
     exit 1
 fi
 
