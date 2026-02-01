@@ -21,7 +21,7 @@ show_banner() {
     echo -e "${PURPLE}"
     echo "  ╔══════════════════════════════════════════════════════════════╗"
     echo "  ║                                                              ║"
-    echo "  ║  🚀 CyberPanel Mods - Enhanced Repository v2.0.0 🚀         ║"
+    echo "  ║  🚀 CyberPanel Mods - Enhanced Repository v2.1.0 🚀         ║"
     echo "  ║                                                              ║"
     echo "  ║  The most comprehensive collection of CyberPanel mods        ║"
     echo "  ║  with full cross-platform compatibility                      ║"
