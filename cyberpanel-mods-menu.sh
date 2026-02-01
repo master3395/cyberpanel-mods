@@ -864,25 +864,65 @@ show_main_menu() {
         echo -e "${WHITE}║                        MAIN MENU                           ║${NC}"
         echo -e "${WHITE}╠══════════════════════════════════════════════════════════════╣${NC}"
         echo -e "${WHITE}║                                                              ║${NC}"
-        # Menu items - using fixed format with manually verified padding values
-        # Note: printf %*s counts bytes, not visual width, so emoji width is accounted for in padding
-        printf "${WHITE}║  ${GREEN}%2d.${NC} ❌ Exit%46s${WHITE}║${NC}\n" 0 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 👥 User & Website Management%25s${WHITE}║${NC}\n" 1 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 🔍 OS Compatibility Check%28s${WHITE}║${NC}\n" 2 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 🛠️  Utilities%38s${WHITE}║${NC}\n" 3 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 🔧 Core Fixes & Repairs%30s${WHITE}║${NC}\n" 4 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 🛡️  Security Tools%33s${WHITE}║${NC}\n" 5 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 🐘 PHP Version Manager%31s${WHITE}║${NC}\n" 6 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 🗄️  MariaDB Version Manager%24s${WHITE}║${NC}\n" 7 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 📦 Application Version Managers%22s${WHITE}║${NC}\n" 8 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 💾 Backup & Restore Tools%28s${WHITE}║${NC}\n" 9 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 📧 Email Fixes%38s${WHITE}║${NC}\n" 10 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 🖥️  OS-Specific Fixes%29s${WHITE}║${NC}\n" 11 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 🌐 rDNS Tools%39s${WHITE}║${NC}\n" 12 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 📚 Documentation%36s${WHITE}║${NC}\n" 13 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} ℹ️  System Information%28s${WHITE}║${NC}\n" 14 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 🔄 Update Menu Script%31s${WHITE}║${NC}\n" 15 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} ❌ Exit%45s${WHITE}║${NC}\n" 16 ""
+        
+        # Helper function to print menu item with perfect alignment
+        # Calculates visual width and adds spaces after text to align right border
+        print_menu_item() {
+            local num=$1
+            local text="$2"
+            
+            # Build number part
+            local num_str
+            if [ $num -lt 10 ]; then
+                num_str="  $num. "  # 5 chars: "  0. "
+            else
+                num_str=" $num. "   # 6 chars: " 10. "
+            fi
+            
+            # Calculate visual width of text (emojis are 2 chars visually)
+            local text_bytes=$(echo -n "$text" | wc -c)
+            local emoji_count=$(echo -n "$text" | grep -o "[👥🔍🛠️🔧🛡️🐘🗄️📦💾📧🖥️🌐📚ℹ️🔄❌]" | wc -l)
+            # Visible width: bytes - emoji_count + (emoji_count * 2)
+            # Each emoji is ~4 bytes but 2 chars wide, so: visible = bytes - (emoji_count * 2) + (emoji_count * 2)
+            # Actually simpler: visible = len(text) - emoji_count + (emoji_count * 2)
+            local text_visible=$((text_bytes - emoji_count + (emoji_count * 2)))
+            
+            # Calculate total visible width
+            local num_visible=$([ $num -lt 10 ] && echo 5 || echo 6)
+            local total_visible=$((num_visible + text_visible))
+            
+            # Calculate spaces needed: 58 (content width) - total_visible
+            local spaces_needed=$((58 - total_visible))
+            
+            # Build spaces string
+            local spaces=""
+            for ((i=0; i<$spaces_needed; i++)); do
+                spaces="${spaces} "
+            done
+            
+            # Print the line
+            printf "${WHITE}║  ${GREEN}%s${NC}%s%s${WHITE}║${NC}\n" "$num_str" "$text" "$spaces"
+        }
+        
+        # Print all menu items
+        print_menu_item 0 "❌ Exit"
+        print_menu_item 1 "👥 User & Website Management"
+        print_menu_item 2 "🔍 OS Compatibility Check"
+        print_menu_item 3 "🛠️  Utilities"
+        print_menu_item 4 "🔧 Core Fixes & Repairs"
+        print_menu_item 5 "🛡️  Security Tools"
+        print_menu_item 6 "🐘 PHP Version Manager"
+        print_menu_item 7 "🗄️  MariaDB Version Manager"
+        print_menu_item 8 "📦 Application Version Managers"
+        print_menu_item 9 "💾 Backup & Restore Tools"
+        print_menu_item 10 "📧 Email Fixes"
+        print_menu_item 11 "🖥️  OS-Specific Fixes"
+        print_menu_item 12 "🌐 rDNS Tools"
+        print_menu_item 13 "📚 Documentation"
+        print_menu_item 14 "ℹ️  System Information"
+        print_menu_item 15 "🔄 Update Menu Script"
+        print_menu_item 16 "❌ Exit"
+        
         echo -e "${WHITE}║                                                              ║${NC}"
         echo -e "${WHITE}╚══════════════════════════════════════════════════════════════╝${NC}"
         echo -e ""
