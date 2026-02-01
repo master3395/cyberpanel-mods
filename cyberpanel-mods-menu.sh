@@ -864,6 +864,7 @@ show_main_menu() {
         echo -e "${WHITE}║                        MAIN MENU                           ║${NC}"
         echo -e "${WHITE}╠══════════════════════════════════════════════════════════════╣${NC}"
         echo -e "${WHITE}║                                                              ║${NC}"
+        printf "${WHITE}║  ${GREEN}%2d.${NC} ❌ Exit%*s${WHITE}║${NC}\n" 0 47 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} 👥 User & Website Management%*s${WHITE}║${NC}\n" 1 23 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} 🔍 OS Compatibility Check%*s${WHITE}║${NC}\n" 2 28 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} 🛠️  Utilities%*s${WHITE}║${NC}\n" 3 43 ""
@@ -883,10 +884,16 @@ show_main_menu() {
         echo -e "${WHITE}║                                                              ║${NC}"
         echo -e "${WHITE}╚══════════════════════════════════════════════════════════════╝${NC}"
         echo -e ""
-        printf "%s" "Please enter your choice [1-16]: "
+        printf "%s" "Please enter your choice [0-16]: "
         read choice
         
         case $choice in
+            0|16) 
+                echo -e "\n${GREEN}Thank you for using CyberPanel Mods!${NC}"
+                echo -e "${BLUE}For support and updates, visit:${NC}"
+                echo -e "${CYAN}https://github.com/master3395/cyberpanel-mods${NC}"
+                exit 0
+                ;;
             1) run_user_management ;;
             2) run_compatibility_check ;;
             3) run_utilities ;;
@@ -902,14 +909,8 @@ show_main_menu() {
             13) show_documentation ;;
             14) show_system_info ;;
             15) update_menu ;;
-            16) 
-                echo -e "\n${GREEN}Thank you for using CyberPanel Mods!${NC}"
-                echo -e "${BLUE}For support and updates, visit:${NC}"
-                echo -e "${CYAN}https://github.com/master3395/cyberpanel-mods${NC}"
-                exit 0
-                ;;
             *)
-                echo -e "\n${RED}Invalid option. Please enter a number between 1-16.${NC}"
+                echo -e "\n${RED}Invalid option. Please enter a number between 0-16.${NC}"
                 pause
                 ;;
         esac
