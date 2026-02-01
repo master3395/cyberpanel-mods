@@ -174,40 +174,306 @@ run_compatibility_check() {
     pause
 }
 
-# Function to run enhanced utility
-run_enhanced_utility() {
-    echo -e "\n${BLUE}Starting Enhanced CyberPanel Utility...${NC}"
-    if [[ -f "utilities/cyberpanel_utility_enhanced.sh" ]]; then
-        bash utilities/cyberpanel_utility_enhanced.sh
-    else
-        echo -e "${YELLOW}Enhanced utility not found locally, downloading...${NC}"
-        curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/cyberpanel_utility_enhanced.sh | bash
-    fi
-    pause
+# Function to run utilities
+run_utilities() {
+    while true; do
+        echo -e "\n${CYAN}=== Utilities ===${NC}"
+        echo -e "1. Enhanced CyberPanel Utility"
+        echo -e "2. Cloudflare to PowerDNS Migration"
+        echo -e "3. CrowdSec Update"
+        echo -e "4. CyberPanel Sessions Manager"
+        echo -e "5. CyberPanel Sessions Cronjob"
+        echo -e "6. Default Website Page Setup"
+        echo -e "7. Install PureFTPD"
+        echo -e "8. Install vsFTPD"
+        echo -e "9. Back to Main Menu"
+        echo -e ""
+        printf "%s" "Please enter number [1-9]: "
+        read choice
+        
+        case $choice in
+            1)
+                echo -e "\n${BLUE}Starting Enhanced CyberPanel Utility...${NC}"
+                if [[ -f "utilities/cyberpanel_utility_enhanced.sh" ]]; then
+                    bash utilities/cyberpanel_utility_enhanced.sh
+                else
+                    echo -e "${YELLOW}Enhanced utility not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/cyberpanel_utility_enhanced.sh | bash
+                fi
+                pause
+                ;;
+            2)
+                echo -e "\n${BLUE}Migrating from Cloudflare to PowerDNS...${NC}"
+                if [[ -f "utilities/cloudflare_to_powerdns.sh" ]]; then
+                    bash utilities/cloudflare_to_powerdns.sh
+                else
+                    echo -e "${YELLOW}Migration script not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/cloudflare_to_powerdns.sh | bash
+                fi
+                pause
+                ;;
+            3)
+                echo -e "\n${BLUE}Updating CrowdSec...${NC}"
+                if [[ -f "utilities/crowdsec_update.sh" ]]; then
+                    bash utilities/crowdsec_update.sh
+                else
+                    echo -e "${YELLOW}CrowdSec update not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/crowdsec_update.sh | bash
+                fi
+                pause
+                ;;
+            4)
+                echo -e "\n${BLUE}Managing CyberPanel Sessions...${NC}"
+                if [[ -f "utilities/cyberpanel_sessions.sh" ]]; then
+                    bash utilities/cyberpanel_sessions.sh
+                else
+                    echo -e "${YELLOW}Sessions manager not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/cyberpanel_sessions.sh | bash
+                fi
+                pause
+                ;;
+            5)
+                echo -e "\n${BLUE}Setting up CyberPanel Sessions Cronjob...${NC}"
+                if [[ -f "utilities/cyberpanel_sessions_cronjob.sh" ]]; then
+                    bash utilities/cyberpanel_sessions_cronjob.sh
+                else
+                    echo -e "${YELLOW}Sessions cronjob not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/cyberpanel_sessions_cronjob.sh | bash
+                fi
+                pause
+                ;;
+            6)
+                echo -e "\n${BLUE}Setting up Default Website Page...${NC}"
+                if [[ -f "utilities/defaultwebsitepage.sh" ]]; then
+                    bash utilities/defaultwebsitepage.sh
+                else
+                    echo -e "${YELLOW}Default page script not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/defaultwebsitepage.sh | bash
+                fi
+                pause
+                ;;
+            7)
+                echo -e "\n${BLUE}Installing PureFTPD...${NC}"
+                if [[ -f "utilities/install_pureftpd.sh" ]]; then
+                    bash utilities/install_pureftpd.sh
+                else
+                    echo -e "${YELLOW}PureFTPD installer not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/install_pureftpd.sh | bash
+                fi
+                pause
+                ;;
+            8)
+                echo -e "\n${BLUE}Installing vsFTPD...${NC}"
+                if [[ -f "utilities/install_vsftpd.sh" ]]; then
+                    bash utilities/install_vsftpd.sh
+                else
+                    echo -e "${YELLOW}vsFTPD installer not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/utilities/install_vsftpd.sh | bash
+                fi
+                pause
+                ;;
+            9)
+                break
+                ;;
+            *)
+                echo -e "${RED}Please enter a valid number [1-9]${NC}"
+                ;;
+        esac
+    done
 }
 
 # Function to run core fixes
 run_core_fixes() {
-    echo -e "\n${BLUE}Starting Core Fixes...${NC}"
-    if [[ -f "core-fixes/cyberpanel_core_fixes_enhanced.sh" ]]; then
-        bash core-fixes/cyberpanel_core_fixes_enhanced.sh
-    else
-        echo -e "${YELLOW}Core fixes not found locally, downloading...${NC}"
-        curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/cyberpanel_core_fixes_enhanced.sh | bash
-    fi
-    pause
+    while true; do
+        echo -e "\n${CYAN}=== Core Fixes & Repairs ===${NC}"
+        echo -e "1. Core Fixes (Enhanced)"
+        echo -e "2. Fix 503 Service Unavailable"
+        echo -e "3. Fix Missing WP-CLI"
+        echo -e "4. MailScanner AlmaLinux 9 Fix"
+        echo -e "5. Fix Symbolic Links"
+        echo -e "6. AlmaLinux 10 Complete Fix"
+        echo -e "7. AlmaLinux 10 Patch"
+        echo -e "8. Back to Main Menu"
+        echo -e ""
+        printf "%s" "Please enter number [1-8]: "
+        read choice
+        
+        case $choice in
+            1)
+                echo -e "\n${BLUE}Starting Core Fixes...${NC}"
+                if [[ -f "core-fixes/cyberpanel_core_fixes_enhanced.sh" ]]; then
+                    bash core-fixes/cyberpanel_core_fixes_enhanced.sh
+                else
+                    echo -e "${YELLOW}Core fixes not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/cyberpanel_core_fixes_enhanced.sh | bash
+                fi
+                pause
+                ;;
+            2)
+                echo -e "\n${BLUE}Fixing 503 Service Unavailable...${NC}"
+                if [[ -f "core-fixes/fix_503_service_unavailable.sh" ]]; then
+                    bash core-fixes/fix_503_service_unavailable.sh
+                else
+                    echo -e "${YELLOW}503 fix not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/fix_503_service_unavailable.sh | bash
+                fi
+                pause
+                ;;
+            3)
+                echo -e "\n${BLUE}Fixing Missing WP-CLI...${NC}"
+                if [[ -f "core-fixes/fix_missing_wp_cli.sh" ]]; then
+                    bash core-fixes/fix_missing_wp_cli.sh
+                else
+                    echo -e "${YELLOW}WP-CLI fix not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/fix_missing_wp_cli.sh | bash
+                fi
+                pause
+                ;;
+            4)
+                echo -e "\n${BLUE}Running MailScanner AlmaLinux 9 Fix...${NC}"
+                if [[ -f "core-fixes/mailscanner_almalinux9_fix.sh" ]]; then
+                    bash core-fixes/mailscanner_almalinux9_fix.sh
+                else
+                    echo -e "${YELLOW}MailScanner fix not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/mailscanner_almalinux9_fix.sh | bash
+                fi
+                pause
+                ;;
+            5)
+                echo -e "\n${BLUE}Fixing Symbolic Links...${NC}"
+                if [[ -f "core-fixes/cyberpanel_fix_symbolic_links.sh" ]]; then
+                    bash core-fixes/cyberpanel_fix_symbolic_links.sh
+                else
+                    echo -e "${YELLOW}Symbolic links fix not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/cyberpanel_fix_symbolic_links.sh | bash
+                fi
+                pause
+                ;;
+            6)
+                echo -e "\n${BLUE}Running AlmaLinux 10 Complete Fix...${NC}"
+                if [[ -f "core-fixes/cyberpanel-almalinux10-complete-fix.sh" ]]; then
+                    bash core-fixes/cyberpanel-almalinux10-complete-fix.sh
+                else
+                    echo -e "${YELLOW}AlmaLinux 10 fix not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/cyberpanel-almalinux10-complete-fix.sh | bash
+                fi
+                pause
+                ;;
+            7)
+                echo -e "\n${BLUE}Running AlmaLinux 10 Patch...${NC}"
+                if [[ -f "core-fixes/patch-cyberpanel-almalinux10.sh" ]]; then
+                    bash core-fixes/patch-cyberpanel-almalinux10.sh
+                else
+                    echo -e "${YELLOW}AlmaLinux 10 patch not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/patch-cyberpanel-almalinux10.sh | bash
+                fi
+                pause
+                ;;
+            8)
+                break
+                ;;
+            *)
+                echo -e "${RED}Please enter a valid number [1-8]${NC}"
+                ;;
+        esac
+    done
 }
 
-# Function to run security hardening
-run_security_hardening() {
-    echo -e "\n${BLUE}Starting Security Hardening...${NC}"
-    if [[ -f "security/cyberpanel_security_enhanced.sh" ]]; then
-        bash security/cyberpanel_security_enhanced.sh
-    else
-        echo -e "${YELLOW}Security script not found locally, downloading...${NC}"
-        curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/security/cyberpanel_security_enhanced.sh | bash
-    fi
-    pause
+# Function to run security tools
+run_security_tools() {
+    while true; do
+        echo -e "\n${CYAN}=== Security Tools ===${NC}"
+        echo -e "1. Security Hardening (Enhanced)"
+        echo -e "2. Disable 2FA (Standalone)"
+        echo -e "3. Fix ModSecurity LMDB Crash"
+        echo -e "4. Fix Permissions"
+        echo -e "5. Fix SSL Missing Context"
+        echo -e "6. ModSecurity Fix"
+        echo -e "7. Self-Signed Certificate Fixer"
+        echo -e "8. Back to Main Menu"
+        echo -e ""
+        printf "%s" "Please enter number [1-8]: "
+        read choice
+        
+        case $choice in
+            1)
+                echo -e "\n${BLUE}Starting Security Hardening...${NC}"
+                if [[ -f "security/cyberpanel_security_enhanced.sh" ]]; then
+                    bash security/cyberpanel_security_enhanced.sh
+                else
+                    echo -e "${YELLOW}Security script not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/security/cyberpanel_security_enhanced.sh | bash
+                fi
+                pause
+                ;;
+            2)
+                echo -e "\n${BLUE}Disabling 2FA...${NC}"
+                if [[ -f "security/disable_2fa.sh" ]]; then
+                    bash security/disable_2fa.sh
+                else
+                    echo -e "${YELLOW}2FA disable script not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/security/disable_2fa.sh | bash
+                fi
+                pause
+                ;;
+            3)
+                echo -e "\n${BLUE}Fixing ModSecurity LMDB Crash...${NC}"
+                if [[ -f "security/fix-modsecurity-lmdb-crash.sh" ]]; then
+                    bash security/fix-modsecurity-lmdb-crash.sh
+                else
+                    echo -e "${YELLOW}ModSecurity fix not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/security/fix-modsecurity-lmdb-crash.sh | bash
+                fi
+                pause
+                ;;
+            4)
+                echo -e "\n${BLUE}Fixing Permissions...${NC}"
+                if [[ -f "security/fix_permissions.sh" ]]; then
+                    bash security/fix_permissions.sh
+                else
+                    echo -e "${YELLOW}Permissions fix not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/security/fix_permissions.sh | bash
+                fi
+                pause
+                ;;
+            5)
+                echo -e "\n${BLUE}Fixing SSL Missing Context...${NC}"
+                if [[ -f "security/fix_ssl_missing_context.sh" ]]; then
+                    bash security/fix_ssl_missing_context.sh
+                else
+                    echo -e "${YELLOW}SSL fix not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/security/fix_ssl_missing_context.sh | bash
+                fi
+                pause
+                ;;
+            6)
+                echo -e "\n${BLUE}Running ModSecurity Fix...${NC}"
+                if [[ -f "security/modsecurity-fix.sh" ]]; then
+                    bash security/modsecurity-fix.sh
+                else
+                    echo -e "${YELLOW}ModSecurity fix not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/security/modsecurity-fix.sh | bash
+                fi
+                pause
+                ;;
+            7)
+                echo -e "\n${BLUE}Running Self-Signed Certificate Fixer...${NC}"
+                if [[ -f "security/selfsigned_fixer.sh" ]]; then
+                    bash security/selfsigned_fixer.sh
+                else
+                    echo -e "${YELLOW}Self-signed fixer not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/security/selfsigned_fixer.sh | bash
+                fi
+                pause
+                ;;
+            8)
+                break
+                ;;
+            *)
+                echo -e "${RED}Please enter a valid number [1-8]${NC}"
+                ;;
+        esac
+    done
 }
 
 # Function to run PHP version manager
@@ -404,6 +670,48 @@ run_os_specific() {
     done
 }
 
+# Function to run rDNS tools
+run_rdns_tools() {
+    while true; do
+        echo -e "\n${CYAN}=== rDNS Tools ===${NC}"
+        echo -e "1. rDNS Fix"
+        echo -e "2. Apply rDNS Fix"
+        echo -e "3. Back to Main Menu"
+        echo -e ""
+        printf "%s" "Please enter number [1-3]: "
+        read choice
+        
+        case $choice in
+            1)
+                echo -e "\n${BLUE}Running rDNS Fix...${NC}"
+                if [[ -f "rdns/rdns-fix.sh" ]]; then
+                    bash rdns/rdns-fix.sh
+                else
+                    echo -e "${YELLOW}rDNS fix not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/rdns/rdns-fix.sh | bash
+                fi
+                pause
+                ;;
+            2)
+                echo -e "\n${BLUE}Applying rDNS Fix...${NC}"
+                if [[ -f "rdns/apply-rdns-fix.sh" ]]; then
+                    bash rdns/apply-rdns-fix.sh
+                else
+                    echo -e "${YELLOW}rDNS apply script not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/rdns/apply-rdns-fix.sh | bash
+                fi
+                pause
+                ;;
+            3)
+                break
+                ;;
+            *)
+                echo -e "${RED}Please enter a valid number [1-3]${NC}"
+                ;;
+        esac
+    done
+}
+
 # Function to show documentation
 show_documentation() {
     while true; do
@@ -558,48 +866,50 @@ show_main_menu() {
         echo -e "${WHITE}║                                                              ║${NC}"
         echo -e "${WHITE}║  ${GREEN}1.${NC} 👥 User & Website Management                 ${WHITE}║${NC}"
         echo -e "${WHITE}║  ${GREEN}2.${NC} 🔍 OS Compatibility Check                    ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}3.${NC} 🛠️  Enhanced CyberPanel Utility              ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}3.${NC} 🛠️  Utilities                                ${WHITE}║${NC}"
         echo -e "${WHITE}║  ${GREEN}4.${NC} 🔧 Core Fixes & Repairs                      ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}5.${NC} 🛡️  Security Hardening                       ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}5.${NC} 🛡️  Security Tools                           ${WHITE}║${NC}"
         echo -e "${WHITE}║  ${GREEN}6.${NC} 🐘 PHP Version Manager                       ${WHITE}║${NC}"
         echo -e "${WHITE}║  ${GREEN}7.${NC} 🗄️  MariaDB Version Manager                  ${WHITE}║${NC}"
         echo -e "${WHITE}║  ${GREEN}8.${NC} 📦 Application Version Managers             ${WHITE}║${NC}"
         echo -e "${WHITE}║  ${GREEN}9.${NC} 💾 Backup & Restore Tools                   ${WHITE}║${NC}"
         echo -e "${WHITE}║  ${GREEN}10.${NC} 📧 Email Fixes                              ${WHITE}║${NC}"
         echo -e "${WHITE}║  ${GREEN}11.${NC} 🖥️  OS-Specific Fixes                       ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}12.${NC} 📚 Documentation                            ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}13.${NC} ℹ️  System Information                       ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}14.${NC} 🔄 Update Menu Script                       ${WHITE}║${NC}"
-        echo -e "${WHITE}║  ${GREEN}15.${NC} ❌ Exit                                     ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}12.${NC} 🌐 rDNS Tools                               ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}13.${NC} 📚 Documentation                            ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}14.${NC} ℹ️  System Information                       ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}15.${NC} 🔄 Update Menu Script                       ${WHITE}║${NC}"
+        echo -e "${WHITE}║  ${GREEN}16.${NC} ❌ Exit                                     ${WHITE}║${NC}"
         echo -e "${WHITE}║                                                              ║${NC}"
         echo -e "${WHITE}╚══════════════════════════════════════════════════════════════╝${NC}"
         echo -e ""
-        printf "%s" "Please enter your choice [1-15]: "
+        printf "%s" "Please enter your choice [1-16]: "
         read choice
         
         case $choice in
             1) run_user_management ;;
             2) run_compatibility_check ;;
-            3) run_enhanced_utility ;;
+            3) run_utilities ;;
             4) run_core_fixes ;;
-            5) run_security_hardening ;;
+            5) run_security_tools ;;
             6) run_php_manager ;;
             7) run_mariadb_manager ;;
             8) run_app_version_managers ;;
             9) run_backup_restore ;;
             10) run_email_fixes ;;
             11) run_os_specific ;;
-            12) show_documentation ;;
-            13) show_system_info ;;
-            14) update_menu ;;
-            15) 
+            12) run_rdns_tools ;;
+            13) show_documentation ;;
+            14) show_system_info ;;
+            15) update_menu ;;
+            16) 
                 echo -e "\n${GREEN}Thank you for using CyberPanel Mods!${NC}"
                 echo -e "${BLUE}For support and updates, visit:${NC}"
                 echo -e "${CYAN}https://github.com/master3395/cyberpanel-mods${NC}"
                 exit 0
                 ;;
             *)
-                echo -e "\n${RED}Invalid option. Please enter a number between 1-15.${NC}"
+                echo -e "\n${RED}Invalid option. Please enter a number between 1-16.${NC}"
                 pause
                 ;;
         esac

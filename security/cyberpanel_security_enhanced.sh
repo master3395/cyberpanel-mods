@@ -119,10 +119,24 @@ disable_2fa() {
         
         if [[ -n "$mariadb_cmd" ]]; then
             echo -e "${BLUE}Disabling 2FA in database...${NC}"
-            $mariadb_cmd -u root -p"$mysql_password" -e "UPDATE cyberpanel.admin SET twoFA = 0 WHERE id = 1;" 2>/dev/null || {
-                echo -e "${YELLOW}Warning: Could not disable 2FA in database${NC}"
-            }
-            log_message "2FA disabled in database"
+            local success=0
+            
+            # Try both table names in case one is wrong (different CyberPanel versions/configurations)
+            # First try: loginSystem_administrator (standard table name)
+            $mariadb_cmd -u root -p"$mysql_password" cyberpanel -e "UPDATE loginSystem_administrator SET twoFA = 0, secretKey = 'None' WHERE loginSystem_administrator.id = 1;" 2>/dev/null && success=1
+            
+            # If first attempt failed, try alternative table name: cyberpanel.admin
+            if [[ $success -eq 0 ]]; then
+                echo -e "${YELLOW}Trying alternative table name...${NC}"
+                $mariadb_cmd -u root -p"$mysql_password" cyberpanel -e "UPDATE cyberpanel.admin SET twoFA = 0, secretKey = 'None' WHERE id = 1;" 2>/dev/null && success=1
+            fi
+            
+            if [[ $success -eq 1 ]]; then
+                log_message "2FA disabled in database"
+            else
+                echo -e "${YELLOW}Warning: Could not disable 2FA in database (tried both table names)${NC}"
+                log_message "WARNING: Failed to disable 2FA in database"
+            fi
         fi
     fi
     
