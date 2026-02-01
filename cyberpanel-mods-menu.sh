@@ -866,62 +866,39 @@ show_main_menu() {
         echo -e "${WHITE}║                                                              ║${NC}"
         
         # Helper function to print menu item with perfect alignment
-        # Calculates visual width and adds spaces after text to align right border
+        # Simple printf-based alignment without emojis
         print_menu_item() {
             local num=$1
             local text="$2"
             
-            # Build number part
-            local num_str
+            # Use printf with fixed width for perfect alignment
+            # Format: "║  " + number + ". " + text + padding + "║"
+            # Total content width: 58 characters
             if [ $num -lt 10 ]; then
-                num_str="  $num. "  # 5 chars: "  0. "
+                printf "${WHITE}║  ${GREEN}%2d.${NC} %-52s${WHITE}║${NC}\n" "$num" "$text"
             else
-                num_str=" $num. "   # 6 chars: " 10. "
+                printf "${WHITE}║  ${GREEN}%2d.${NC} %-51s${WHITE}║${NC}\n" "$num" "$text"
             fi
-            
-            # Calculate visual width of text (emojis are 2 chars visually)
-            local text_bytes=$(echo -n "$text" | wc -c)
-            local emoji_count=$(echo -n "$text" | grep -o "[👥🔍🛠️🔧🛡️🐘🗄️📦💾📧🖥️🌐📚ℹ️🔄❌]" | wc -l)
-            # Visible width: bytes - emoji_count + (emoji_count * 2)
-            # Each emoji is ~4 bytes but 2 chars wide, so: visible = bytes - (emoji_count * 2) + (emoji_count * 2)
-            # Actually simpler: visible = len(text) - emoji_count + (emoji_count * 2)
-            local text_visible=$((text_bytes - emoji_count + (emoji_count * 2)))
-            
-            # Calculate total visible width
-            local num_visible=$([ $num -lt 10 ] && echo 5 || echo 6)
-            local total_visible=$((num_visible + text_visible))
-            
-            # Calculate spaces needed: 58 (content width) - total_visible
-            local spaces_needed=$((58 - total_visible))
-            
-            # Build spaces string
-            local spaces=""
-            for ((i=0; i<$spaces_needed; i++)); do
-                spaces="${spaces} "
-            done
-            
-            # Print the line
-            printf "${WHITE}║  ${GREEN}%s${NC}%s%s${WHITE}║${NC}\n" "$num_str" "$text" "$spaces"
         }
         
         # Print all menu items
-        print_menu_item 0 "❌ Exit"
-        print_menu_item 1 "👥 User & Website Management"    
-        print_menu_item 2 "🔍 OS Compatibility Check"
-        print_menu_item 3 "🛠️  Utilities"
-        print_menu_item 4 "🔧 Core Fixes & Repairs"
-        print_menu_item 5 "🛡️  Security Tools"
-        print_menu_item 6 "🐘 PHP Version Manager"
-        print_menu_item 7 "🗄️  MariaDB Version Manager"
-        print_menu_item 8 "📦 Application Version Managers"
-        print_menu_item 9 "💾 Backup & Restore Tools"
-        print_menu_item 10 "📧 Email Fixes"
-        print_menu_item 11 "🖥️  OS-Specific Fixes"
-        print_menu_item 12 "🌐 rDNS Tools"
-        print_menu_item 13 "📚 Documentation"
-        print_menu_item 14 "ℹ️  System Information"
-        print_menu_item 15 "🔄 Update Menu Script"
-        print_menu_item 16 "❌ Exit"
+        print_menu_item 0 "Exit"
+        print_menu_item 1 "User & Website Management"
+        print_menu_item 2 "OS Compatibility Check"
+        print_menu_item 3 "Utilities"
+        print_menu_item 4 "Core Fixes & Repairs"
+        print_menu_item 5 "Security Tools"
+        print_menu_item 6 "PHP Version Manager"
+        print_menu_item 7 "MariaDB Version Manager"
+        print_menu_item 8 "Application Version Managers"
+        print_menu_item 9 "Backup & Restore Tools"
+        print_menu_item 10 "Email Fixes"
+        print_menu_item 11 "OS-Specific Fixes"
+        print_menu_item 12 "rDNS Tools"
+        print_menu_item 13 "Documentation"
+        print_menu_item 14 "System Information"
+        print_menu_item 15 "Update Menu Script"
+        print_menu_item 16 "Exit"
         
         echo -e "${WHITE}║                                                              ║${NC}"
         echo -e "${WHITE}╚══════════════════════════════════════════════════════════════╝${NC}"
