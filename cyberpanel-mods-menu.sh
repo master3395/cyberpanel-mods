@@ -864,24 +864,23 @@ show_main_menu() {
         echo -e "${WHITE}║                        MAIN MENU                           ║${NC}"
         echo -e "${WHITE}╠══════════════════════════════════════════════════════════════╣${NC}"
         echo -e "${WHITE}║                                                              ║${NC}"
-        # Menu items with precisely calculated padding (Python-verified values)
-        # Total width: 62 chars, Content: 58 chars (62 - 3 left border - 1 right border)
-        # Emojis are 2 characters wide visually, numbers are 1-2 digits
+        # Menu items - using fixed format with manually verified padding values
+        # Note: printf %*s counts bytes, not visual width, so emoji width is accounted for in padding
         printf "${WHITE}║  ${GREEN}%2d.${NC} ❌ Exit%46s${WHITE}║${NC}\n" 0 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} 👥 User & Website Management%25s${WHITE}║${NC}\n" 1 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} 🔍 OS Compatibility Check%28s${WHITE}║${NC}\n" 2 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 🛠️  Utilities%40s${WHITE}║${NC}\n" 3 ""
+        printf "${WHITE}║  ${GREEN}%2d.${NC} 🛠️  Utilities%38s${WHITE}║${NC}\n" 3 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} 🔧 Core Fixes & Repairs%30s${WHITE}║${NC}\n" 4 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 🛡️  Security Tools%35s${WHITE}║${NC}\n" 5 ""
+        printf "${WHITE}║  ${GREEN}%2d.${NC} 🛡️  Security Tools%33s${WHITE}║${NC}\n" 5 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} 🐘 PHP Version Manager%31s${WHITE}║${NC}\n" 6 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 🗄️  MariaDB Version Manager%26s${WHITE}║${NC}\n" 7 ""
+        printf "${WHITE}║  ${GREEN}%2d.${NC} 🗄️  MariaDB Version Manager%24s${WHITE}║${NC}\n" 7 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} 📦 Application Version Managers%22s${WHITE}║${NC}\n" 8 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} 💾 Backup & Restore Tools%28s${WHITE}║${NC}\n" 9 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} 📧 Email Fixes%38s${WHITE}║${NC}\n" 10 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} 🖥️  OS-Specific Fixes%31s${WHITE}║${NC}\n" 11 ""
+        printf "${WHITE}║  ${GREEN}%2d.${NC} 🖥️  OS-Specific Fixes%29s${WHITE}║${NC}\n" 11 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} 🌐 rDNS Tools%39s${WHITE}║${NC}\n" 12 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} 📚 Documentation%36s${WHITE}║${NC}\n" 13 ""
-        printf "${WHITE}║  ${GREEN}%2d.${NC} ℹ️  System Information%30s${WHITE}║${NC}\n" 14 ""
+        printf "${WHITE}║  ${GREEN}%2d.${NC} ℹ️  System Information%28s${WHITE}║${NC}\n" 14 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} 🔄 Update Menu Script%31s${WHITE}║${NC}\n" 15 ""
         printf "${WHITE}║  ${GREEN}%2d.${NC} ❌ Exit%45s${WHITE}║${NC}\n" 16 ""
         echo -e "${WHITE}║                                                              ║${NC}"
