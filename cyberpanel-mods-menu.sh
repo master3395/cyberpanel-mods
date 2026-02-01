@@ -861,7 +861,7 @@ show_main_menu() {
         show_system_status
         
         echo -e "\n${WHITE}╔══════════════════════════════════════════════════════════════╗${NC}"
-        echo -e "${WHITE}║                        MAIN MENU                           ║${NC}"
+        echo -e "${WHITE}║                        MAIN MENU                               ║${NC}"
         echo -e "${WHITE}╠══════════════════════════════════════════════════════════════╣${NC}"
         echo -e "${WHITE}║                                                              ║${NC}"
         
@@ -906,7 +906,7 @@ show_main_menu() {
         
         # Print all menu items
         print_menu_item 0 "❌ Exit"
-        print_menu_item 1 "👥 User & Website Management"
+        print_menu_item 1 "👥 User & Website Management"    
         print_menu_item 2 "🔍 OS Compatibility Check"
         print_menu_item 3 "🛠️  Utilities"
         print_menu_item 4 "🔧 Core Fixes & Repairs"
