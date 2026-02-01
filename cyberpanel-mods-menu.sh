@@ -866,18 +866,32 @@ show_main_menu() {
         echo -e "${WHITE}║                                                              ║${NC}"
         
         # Helper function to print menu item with perfect alignment
-        # Simple printf-based alignment without emojis
+        # Calculates actual text width and adds proper padding
         print_menu_item() {
             local num=$1
             local text="$2"
             
-            # Use printf with fixed width for perfect alignment
-            # Format: "║  " + number + ". " + text + padding + "║"
-            # Total content width: 58 characters
+            # Calculate actual visible width of text (without ANSI codes)
+            local text_length=${#text}
+            
+            # Calculate number part width: " 0. " = 5 chars or "10. " = 6 chars
+            local num_width=$([ $num -lt 10 ] && echo 5 || echo 6)
+            
+            # Total content width is 58 characters
+            # Calculate padding needed: 58 - num_width - text_length
+            local padding_needed=$((58 - num_width - text_length))
+            
+            # Build padding string
+            local padding=""
+            for ((i=0; i<$padding_needed; i++)); do
+                padding="${padding} "
+            done
+            
+            # Print with proper formatting
             if [ $num -lt 10 ]; then
-                printf "${WHITE}║  ${GREEN}%2d.${NC} %-52s${WHITE}║${NC}\n" "$num" "$text"
+                printf "${WHITE}║  ${GREEN}%2d.${NC} %s%s${WHITE}║${NC}\n" "$num" "$text" "$padding"
             else
-                printf "${WHITE}║  ${GREEN}%2d.${NC} %-51s${WHITE}║${NC}\n" "$num" "$text"
+                printf "${WHITE}║  ${GREEN}%2d.${NC} %s%s${WHITE}║${NC}\n" "$num" "$text" "$padding"
             fi
         }
         
