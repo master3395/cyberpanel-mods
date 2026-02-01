@@ -861,7 +861,7 @@ show_main_menu() {
         show_system_status
         
         echo -e "\n${WHITE}╔══════════════════════════════════════════════════════════════╗${NC}"
-        echo -e "${WHITE}║                        MAIN MENU                              ║${NC}"
+        echo -e "${WHITE}║                        MAIN MENU                             ║${NC}"
         echo -e "${WHITE}╠══════════════════════════════════════════════════════════════╣${NC}"
         echo -e "${WHITE}║                                                              ║${NC}"
         
