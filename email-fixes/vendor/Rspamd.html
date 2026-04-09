@@ -1,0 +1,1112 @@
+{% extends "baseTemplate/index.html" %}
+{% load i18n %}
+{% block title %}{% trans "Rspamd - CyberPanel" %}{% endblock %}
+
+{% block header_scripts %}
+<style>
+    /* Rspamd Specific Styles */
+    .rspamd-wrapper {
+        background: transparent;
+        padding: 20px;
+    }
+    
+    .rspamd-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    /* Page Header */
+    .page-header {
+        background: var(--bg-primary, white);
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        border: 1px solid var(--border-light, #e8e9ff);
+    }
+    
+    .page-header h1 {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--text-primary, #2f3640);
+        margin: 0 0 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .page-header .icon {
+        width: 48px;
+        height: 48px;
+        background: #5856d6;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        box-shadow: 0 4px 12px rgba(88,86,214,0.3);
+    }
+    
+    .page-header p {
+        font-size: 15px;
+        color: var(--text-secondary, #64748b);
+        margin: 0;
+    }
+    
+    /* Content Section */
+    .content-section {
+        background: var(--bg-primary, white);
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        border: 1px solid var(--border-light, #e8e9ff);
+    }
+    
+    .section-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-primary, #2f3640);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .section-title::before {
+        content: '';
+        width: 4px;
+        height: 24px;
+        background: #5856d6;
+        border-radius: 2px;
+    }
+    
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+    }
+
+    /* Anchor styled as button (Open Web UI link) — same visual weight as <button class="action-btn"> */
+    .action-buttons a.action-btn {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        box-sizing: border-box;
+        vertical-align: middle;
+    }
+    
+    .action-btn {
+        background: #5856d6;
+        color: white;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 4px 12px rgba(88,86,214,0.3);
+    }
+    
+    .action-btn:hover {
+        background: #4644c0;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(88,86,214,0.4);
+    }
+    
+    .action-btn.primary {
+        background: #3b82f6;
+    }
+    
+    .action-btn.primary:hover {
+        background: #2563eb;
+    }
+    
+    .action-btn.danger {
+        background: #ef4444;
+    }
+    
+    .action-btn.danger:hover {
+        background: #dc2626;
+    }
+    
+    .action-btn.secondary {
+        background: #6b7280;
+    }
+    
+    .action-btn.secondary:hover {
+        background: #4b5563;
+    }
+    
+    /* Installation Section */
+    .install-section {
+        text-align: center;
+        padding: 40px 20px;
+    }
+    
+    .install-icon {
+        width: 80px;
+        height: 80px;
+        background: var(--bg-secondary, #f8f9ff);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 36px;
+        color: #5856d6;
+    }
+    
+    .install-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-primary, #2f3640);
+        margin-bottom: 10px;
+    }
+    
+    .install-description {
+        font-size: 16px;
+        color: var(--text-secondary, #64748b);
+        margin-bottom: 25px;
+    }
+    
+    /* Form Styles */
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary, #2f3640);
+        margin-bottom: 8px;
+        display: block;
+        text-transform: none;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 10px 15px;
+        border: 1px solid var(--border-light, #e8e9ff);
+        border-radius: 8px;
+        font-size: 14px;
+        color: var(--text-primary, #2f3640);
+        background: var(--bg-primary, white);
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        outline: none;
+        border-color: #5856d6;
+        box-shadow: 0 0 0 3px rgba(88,86,214,0.1);
+    }
+    
+    .form-select {
+        width: 100%;
+        padding: 10px 15px;
+        border: 1px solid var(--border-light, #e8e9ff);
+        border-radius: 8px;
+        font-size: 14px;
+        color: var(--text-primary, #2f3640);
+        background: var(--bg-primary, white);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .form-select:focus {
+        outline: none;
+        border-color: #5856d6;
+        box-shadow: 0 0 0 3px rgba(88,86,214,0.1);
+    }
+    
+    /* Bootstrap Toggle Override Styles */
+    .toggle {
+        position: relative !important;
+        overflow: hidden !important;
+        width: 70px !important;
+        height: 32px !important;
+        border-radius: 8px !important;
+        border: 1px solid var(--border-light, #e8e9ff) !important;
+    }
+    
+    .toggle.off {
+        background: var(--bg-secondary, #f8f9ff) !important;
+        border-color: var(--border-light, #e8e9ff) !important;
+    }
+    
+    .toggle.btn-success {
+        background: #5856d6 !important;
+        border-color: #5856d6 !important;
+    }
+    
+    .toggle .toggle-handle {
+        position: absolute !important;
+        top: 2px !important;
+        bottom: 2px !important;
+        width: 26px !important;
+        background: white !important;
+        border-radius: 6px !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .toggle.off .toggle-handle {
+        left: 2px !important;
+    }
+    
+    .toggle.btn-success .toggle-handle {
+        right: 2px !important;
+        left: auto !important;
+    }
+    
+    .toggle-group {
+        transition: all 0.3s ease !important;
+    }
+    
+    .toggle-on, .toggle-off {
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.5px !important;
+        text-transform: uppercase !important;
+        padding: 0 !important;
+        text-align: center !important;
+    }
+    
+    .toggle-on {
+        background: transparent !important;
+        color: white !important;
+        box-shadow: none !important;
+    }
+    
+    .toggle-off {
+        background: transparent !important;
+        color: var(--text-secondary, #64748b) !important;
+        box-shadow: none !important;
+    }
+    
+    .btn-secondary {
+        background: var(--bg-secondary, #f8f9ff) !important;
+        border-color: var(--border-light, #e8e9ff) !important;
+        color: var(--text-secondary, #64748b) !important;
+    }
+    
+    /* Fix for Bootstrap Toggle visibility */
+    .toggle-handle {
+        border: 0 !important;
+    }
+    
+    /* Ensure proper toggle state colors */
+    .toggle.btn {
+        min-width: 70px !important;
+        min-height: 32px !important;
+    }
+    
+    .toggle-on.btn {
+        padding-left: 24px !important;
+        padding-right: 8px !important;
+    }
+    
+    .toggle-off.btn {
+        padding-left: 8px !important;
+        padding-right: 24px !important;
+    }
+    
+    /* Custom Toggle Container */
+    .toggle-container {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .toggle-label-text {
+        font-size: 14px;
+        color: var(--text-primary, #2f3640);
+        font-weight: 500;
+    }
+    
+    /* Save Button */
+    .save-btn {
+        background: #5856d6;
+        color: white;
+        border: none;
+        padding: 12px 32px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 4px 12px rgba(88,86,214,0.3);
+    }
+    
+    .save-btn:hover {
+        background: #4644c0;
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(88,86,214,0.4);
+    }
+    
+    /* Installation Log */
+    .install-log {
+        background: var(--bg-secondary, #f8f9ff);
+        border: 1px solid var(--border-light, #e8e9ff);
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 20px;
+    }
+    
+    .install-log-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .install-log-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-primary, #2f3640);
+    }
+    
+    .log-textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--border-light, #e8e9ff);
+        border-radius: 8px;
+        font-size: 13px;
+        color: var(--text-primary, #2f3640);
+        background: var(--bg-primary, white);
+        resize: vertical;
+        font-family: 'Monaco', 'Consolas', monospace;
+        line-height: 1.5;
+    }
+    
+    /* Alert Messages */
+    .alert {
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+    }
+    
+    .alert-icon {
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+    
+    .alert-success {
+        background: var(--alert-success-bg, #d1fae5);
+        color: var(--alert-success-text, #065f46);
+        border: 1px solid var(--alert-success-border, #a7f3d0);
+    }
+    
+    .alert-success .alert-icon {
+        color: #10b981;
+    }
+    
+    .alert-danger {
+        background: var(--alert-danger-bg, #fee2e2);
+        color: var(--alert-danger-text, #991b1b);
+        border: 1px solid var(--alert-danger-border, #fecaca);
+    }
+    
+    .alert-danger .alert-icon {
+        color: #ef4444;
+    }
+    
+    /* Warning Box */
+    .warning-box {
+        background: var(--alert-warning-bg, #fef3c7);
+        border: 1px solid var(--alert-warning-border, #fde68a);
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .warning-icon {
+        color: #f59e0b;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+    
+    .warning-text {
+        font-size: 14px;
+        color: var(--alert-warning-text, #92400e);
+        line-height: 1.5;
+    }
+    
+    /* Modal Styles */
+    .modal-content {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        background: var(--bg-primary, white);
+    }
+    
+    .modal-header {
+        background: var(--bg-secondary, #f8f9ff);
+        border-bottom: 1px solid var(--border-light, #e8e9ff);
+        border-radius: 12px 12px 0 0;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .modal-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text-primary, #2f3640);
+        margin: 0;
+    }
+    
+    .modal-body {
+        padding: 25px;
+        background: var(--bg-primary, white);
+        color: var(--text-primary, #2f3640);
+    }
+    
+    .modal-footer {
+        background: var(--bg-secondary, #f8f9ff);
+        border-top: 1px solid var(--border-light, #e8e9ff);
+        border-radius: 0 0 12px 12px;
+        padding: 15px 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+    
+    .modal-btn {
+        padding: 10px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .modal-btn.primary {
+        background: #5856d6;
+        color: white;
+    }
+    
+    .modal-btn.primary:hover {
+        background: #4644c0;
+        transform: translateY(-1px);
+    }
+    
+    .modal-btn.secondary {
+        background: var(--bg-primary, white);
+        color: var(--text-secondary, #64748b);
+        border: 1px solid var(--border-light, #e8e9ff);
+    }
+    
+    .modal-btn.secondary:hover {
+        background: var(--bg-secondary, #f8f9ff);
+        color: var(--text-primary, #2f3640);
+    }
+    
+    /* Loading Spinner */
+    .loading-spinner {
+        width: 24px;
+        height: 24px;
+        border: 3px solid var(--border-light, #e8e9ff);
+        border-top-color: #5856d6;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        display: inline-block;
+        margin-left: 10px;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Help Text */
+    .help-text {
+        font-size: 13px;
+        color: var(--text-muted, #94a3b8);
+        margin-top: 5px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .rspamd-wrapper {
+            padding: 15px;
+        }
+        
+        .page-header h1 {
+            font-size: 24px;
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .content-section {
+            padding: 20px;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+        }
+        
+        .action-buttons button {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<div class="rspamd-wrapper">
+    <div class="rspamd-container" ng-controller="Rspamd">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>
+                <div class="icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                {% trans "Rspamd" %}
+            </h1>
+            <p>{% trans "Advanced spam filtering system with antivirus integration" %}</p>
+        </div>
+
+        {% if checkIfRspamdInstalled == 0 %}
+        <!-- Installation Section -->
+        <div class="content-section">
+            <div class="install-section">
+                <div class="install-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <h2 class="install-title">{% trans "Rspamd is not installed" %}</h2>
+                <p class="install-description">{% trans "Install Rspamd to protect your email server with advanced spam filtering and antivirus capabilities" %}</p>
+                <button ng-click="installRspamd()" class="action-btn">
+                    <i class="fas fa-download"></i>
+                    {% trans "Install Now" %}
+                </button>
+            </div>
+
+            <!-- Installation Notifications -->
+            <div ng-hide="RspamdNotifyBox">
+                <div ng-hide="failedToStartInallation" class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle alert-icon"></i>
+                    <span>{% trans "Failed to start installation. Error message:" %} {$ errorMessage $}</span>
+                </div>
+
+                <div ng-hide="couldNotConnect" class="alert alert-danger">
+                    <i class="fas fa-wifi alert-icon"></i>
+                    <span>{% trans "Could not connect. Please refresh this page." %}</span>
+                </div>
+
+                <div ng-hide="installationFailed" class="alert alert-danger">
+                    <i class="fas fa-times-circle alert-icon"></i>
+                    <span>{% trans "Installation failed." %} {$ errorMessage $}</span>
+                </div>
+
+                <div ng-hide="RspamdSuccessfullyInstalled" class="alert alert-success">
+                    <i class="fas fa-check-circle alert-icon"></i>
+                    <span>{% trans "RSPAMD successfully installed, refreshing page in 3 seconds..." %}</span>
+                </div>
+            </div>
+
+            <!-- Installation Log -->
+            <div ng-hide="RspamdInstallBox" class="install-log">
+                <div class="install-log-header">
+                    <i class="fas fa-terminal"></i>
+                    <h3 class="install-log-title">{% trans "Installation Progress" %}</h3>
+                    <span ng-hide="RspamdLoading" class="loading-spinner"></span>
+                </div>
+                <textarea ng-model="requestData" rows="15" class="log-textarea" readonly>{{ requestData }}</textarea>
+            </div>
+        </div>
+        {% else %}
+        <!-- Action Buttons -->
+        <div class="content-section">
+            <h2 class="section-title">{% trans "Rspamd Management" %}</h2>
+            <div class="action-buttons">
+                <a href="{{ rspamd_ui_url }}" target="_blank" rel="noopener noreferrer" class="action-btn primary">
+                    <i class="fas fa-window-maximize"></i>
+                    {% trans "Open Rspamd Web UI" %}
+                </a>
+                <button type="button" data-toggle="modal" data-target="#ViewRspamdlog" ng-click="FetchRspamdLog()" class="action-btn secondary">
+                    <i class="fas fa-file-alt"></i>
+                    {% trans "View Rspamd Logs" %}
+                </button>
+                <button type="button" ng-click="RestartRspamd()" class="action-btn secondary">
+                    <i class="fas fa-sync-alt"></i>
+                    {% trans "Restart Rspamd and ClamAV" %}
+                </button>
+                <button type="button" data-toggle="modal" data-target="#UninstallRspamdmodal" class="action-btn danger">
+                    <i class="fas fa-trash-alt"></i>
+                    {% trans "Uninstall Rspamd" %}
+                </button>
+            </div>
+            <p style="color: var(--text-secondary, #64748b); font-size: 14px; margin-top: 16px; line-height: 1.6;">
+                {% trans "Opens the official Rspamd web interface in a new tab (path /emailPremium/Rspamd/ui/ — proxied through CyberPanel, admin session required)." %}
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">{% trans "Alternative: SSH tunnel" %}</h2>
+            <p style="color: var(--text-secondary, #64748b); font-size: 14px; line-height: 1.6;">
+                {% trans "If the proxied UI misbehaves, connect to port 11334 on the server via SSH and use your local browser." %}
+            </p>
+            <pre style="background: var(--bg-secondary,#f8f9ff); padding: 12px; border-radius: 8px; font-size: 13px; overflow-x: auto; border: 1px solid var(--border-light, #e8e9ff);">ssh -N -L 11334:127.0.0.1:11334 root@{{ ipAddress }}</pre>
+            <p style="margin-top: 12px;">
+                <a href="http://127.0.0.1:11334/" target="_blank" rel="noopener noreferrer" class="action-btn secondary">
+                    <i class="fas fa-external-link-alt"></i>
+                    {% trans "Open Rspamd UI (when tunnel is active)" %}
+                </a>
+            </p>
+        </div>
+
+        <!-- ClamAV Configuration -->
+        <div class="content-section" ng-hide="installedrspamd">
+            <h2 class="section-title">
+                {% trans "ClamAV Configuration in Rspamd" %}
+                <span ng-hide="RspamdLoading" class="loading-spinner"></span>
+            </h2>
+            
+            <div class="warning-box">
+                <i class="fas fa-exclamation-triangle warning-icon"></i>
+                <div class="warning-text">
+                    <strong>{% trans "Warning:" %}</strong> {% trans "These are advanced settings. Do not change if you don't know what you are doing." %}
+                </div>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label class="form-label">
+                        {% trans "Antivirus Status" %}
+                        <span class="help-text">{% trans "Enable or disable antivirus scanning" %}</span>
+                    </label>
+                    <div class="toggle-container">
+                        <input type="checkbox" id="antivirus_status" data-toggle="toggle">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="action_rspamd">
+                        {% trans "Action" %}
+                        <span class="help-text">{% trans "Action to take when virus is detected" %}</span>
+                    </label>
+                    <select class="form-select" id="action_rspamd" ng-model="action_rspamd">
+                        <option selected="selected">Reject</option>
+                        <option>Unset</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        {% trans "Scan MIME Parts" %}
+                        <span class="help-text">{% trans "Enable scanning of MIME parts" %}</span>
+                    </label>
+                    <div class="toggle-container">
+                        <input type="checkbox" id="scan_mime_parts" data-toggle="toggle">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        {% trans "Log Clean" %}
+                        <span class="help-text">{% trans "Log clean messages" %}</span>
+                    </label>
+                    <div class="toggle-container">
+                        <input type="checkbox" id="log_clean" data-toggle="toggle">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="max_size">
+                        {% trans "Max Size" %}
+                        <span class="help-text">{% trans "Maximum file size to scan (in bytes)" %}</span>
+                    </label>
+                    <input type="text" class="form-control" id="max_size" ng-model="max_size" placeholder="26214400" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="CLAMAV_VIRUS">
+                        {% trans "ClamAV Virus Symbol" %}
+                        <span class="help-text">{% trans "Symbol name for virus detection" %}</span>
+                    </label>
+                    <input type="text" class="form-control" id="CLAMAV_VIRUS" ng-model="CLAMAV_VIRUS" placeholder="CLAMAV_VIRUS" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="server">
+                        {% trans "Servers" %}
+                        <span class="help-text">{% trans "ClamAV server address" %}</span>
+                    </label>
+                    <input type="text" class="form-control" id="server" ng-model="server" placeholder="127.0.0.1:3310" required>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <button type="button" ng-click="saveRspamdConfigurations()" class="save-btn">
+                        <i class="fas fa-save"></i>
+                        {% trans "Save Changes" %}
+                    </button>
+                </div>
+
+                <!-- Save Notifications -->
+                <div style="margin-top: 20px;">
+                    <div ng-hide="failedToSave" class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle alert-icon"></i>
+                        <span>{% trans "Failed to save RSPAMD configurations. Error message:" %} {$ errorMessage $}</span>
+                    </div>
+
+                    <div ng-hide="successfullySaved" class="alert alert-success">
+                        <i class="fas fa-check-circle alert-icon"></i>
+                        <span>{% trans "RSPAMD configurations successfully saved." %}</span>
+                    </div>
+
+                    <div ng-hide="couldNotConnect" class="alert alert-danger">
+                        <i class="fas fa-wifi alert-icon"></i>
+                        <span>{% trans "Could not connect. Please refresh this page." %}</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- ClamAV Configuration -->
+        <div class="content-section" ng-hide="installedrspamd">
+            <h2 class="section-title">
+                {% trans "ClamAV Configuration" %}
+                <span ng-hide="CLamAVLoading" class="loading-spinner"></span>
+            </h2>
+            
+            <div class="warning-box">
+                <i class="fas fa-exclamation-triangle warning-icon"></i>
+                <div class="warning-text">
+                    <strong>{% trans "Warning:" %}</strong> {% trans "These are advanced settings. Do not change if you don't know what you are doing." %}
+                </div>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label class="form-label" for="TCPSocket">
+                        {% trans "TCP Socket" %}
+                        <span class="help-text">{% trans "ClamAV TCP socket port" %}</span>
+                    </label>
+                    <input type="text" class="form-control" id="TCPSocket" ng-model="TCPSocket" placeholder="3310" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="TCPAddr">
+                        {% trans "TCP Address" %}
+                        <span class="help-text">{% trans "ClamAV TCP address" %}</span>
+                    </label>
+                    <input type="text" class="form-control" id="TCPAddr" ng-model="TCPAddr" placeholder="127.0.0.1" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        {% trans "Debug" %}
+                        <span class="help-text">{% trans "Enable debug logging" %}</span>
+                    </label>
+                    <div class="toggle-container">
+                        <input type="checkbox" id="clamav_Debug" data-toggle="toggle">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="LogFile">
+                        {% trans "Log Path" %}
+                        <span class="help-text">{% trans "Path to ClamAV log file" %}</span>
+                    </label>
+                    <input type="text" class="form-control" id="LogFile" ng-model="LogFile" placeholder="/var/log/clamav/clamav.log" required>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <button type="button" ng-click="saveclamavConfigurations()" class="save-btn">
+                        <i class="fas fa-save"></i>
+                        {% trans "Save Changes" %}
+                    </button>
+                </div>
+
+                <!-- Save Notifications -->
+                <div style="margin-top: 20px;">
+                    <div ng-hide="ClamAVfailedToSave" class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle alert-icon"></i>
+                        <span>{% trans "Failed to save ClamAV configurations. Error message:" %} {$ errorMessage $}</span>
+                    </div>
+
+                    <div ng-hide="ClamAVsuccessfullySaved" class="alert alert-success">
+                        <i class="fas fa-check-circle alert-icon"></i>
+                        <span>{% trans "ClamAV configurations successfully saved." %}</span>
+                    </div>
+
+                    <div ng-hide="ClamAVcouldNotConnect" class="alert alert-danger">
+                        <i class="fas fa-wifi alert-icon"></i>
+                        <span>{% trans "Could not connect. Please refresh this page." %}</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Postfix Configuration -->
+        <div class="content-section" ng-hide="installedrspamd">
+            <h2 class="section-title">
+                {% trans "Postfix Configuration for Rspamd" %}
+                <span ng-hide="postfixLoading" class="loading-spinner"></span>
+            </h2>
+            
+            <div class="warning-box">
+                <i class="fas fa-exclamation-triangle warning-icon"></i>
+                <div class="warning-text">
+                    <strong>{% trans "Warning:" %}</strong> {% trans "These are advanced settings. Do not change if you don't know what you are doing." %}
+                </div>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label class="form-label" for="smtpd_milters">
+                        {% trans "SMTPD Milters" %}
+                        <span class="help-text">{% trans "Mail filter configuration for SMTP daemon" %}</span>
+                    </label>
+                    <input type="text" class="form-control" id="smtpd_milters" ng-model="smtpd_milters" placeholder="inet:127.0.0.1:11332" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="non_smtpd_milters">
+                        {% trans "Non-SMTPD Milters" %}
+                        <span class="help-text">{% trans "Mail filter configuration for non-SMTP mail" %}</span>
+                    </label>
+                    <input type="text" class="form-control" id="non_smtpd_milters" ng-model="non_smtpd_milters" placeholder="inet:127.0.0.1:11332" required>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <button type="button" ng-click="savepostfixConfigurations()" class="save-btn">
+                        <i class="fas fa-save"></i>
+                        {% trans "Save Changes" %}
+                    </button>
+                </div>
+
+                <!-- Save Notifications -->
+                <div style="margin-top: 20px;">
+                    <div ng-hide="postfixfailedToSave" class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle alert-icon"></i>
+                        <span>{% trans "Failed to save Postfix configurations. Error message:" %} {$ errorMessage $}</span>
+                    </div>
+
+                    <div ng-hide="postfixsuccessfullySaved" class="alert alert-success">
+                        <i class="fas fa-check-circle alert-icon"></i>
+                        <span>{% trans "Postfix configurations successfully saved." %}</span>
+                    </div>
+
+                    <div ng-hide="postfixcouldNotConnect" class="alert alert-danger">
+                        <i class="fas fa-wifi alert-icon"></i>
+                        <span>{% trans "Could not connect. Please refresh this page." %}</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Redis Configuration -->
+        <div class="content-section" ng-hide="installedrspamd">
+            <h2 class="section-title">
+                {% trans "Redis Configuration" %}
+                <span ng-hide="RedisLoading" class="loading-spinner"></span>
+            </h2>
+            
+            <div class="warning-box">
+                <i class="fas fa-exclamation-triangle warning-icon"></i>
+                <div class="warning-text">
+                    <strong>{% trans "Warning:" %}</strong> {% trans "These are advanced settings. Do not change if you don't know what you are doing." %}
+                </div>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label class="form-label" for="write_servers">
+                        {% trans "Write Servers" %}
+                        <span class="help-text">{% trans "Redis write servers configuration" %}</span>
+                    </label>
+                    <input type="text" class="form-control" id="write_servers" ng-model="write_servers" placeholder="127.0.0.1:6379" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="read_servers">
+                        {% trans "Read Servers" %}
+                        <span class="help-text">{% trans "Redis read servers configuration" %}</span>
+                    </label>
+                    <input type="text" class="form-control" id="read_servers" ng-model="read_servers" placeholder="127.0.0.1:6379" required>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <button type="button" ng-click="saveRedisConfigurations()" class="save-btn">
+                        <i class="fas fa-save"></i>
+                        {% trans "Save Changes" %}
+                    </button>
+                </div>
+
+                <!-- Save Notifications -->
+                <div style="margin-top: 20px;">
+                    <div ng-hide="RedisfailedToSave" class="alert alert-danger">
+                        <i class="fas fa-exclamation-circle alert-icon"></i>
+                        <span>{% trans "Failed to save Redis configurations. Error message:" %} {$ errorMessage $}</span>
+                    </div>
+
+                    <div ng-hide="RedissuccessfullySaved" class="alert alert-success">
+                        <i class="fas fa-check-circle alert-icon"></i>
+                        <span>{% trans "Redis configurations successfully saved." %}</span>
+                    </div>
+
+                    <div ng-hide="RediscouldNotConnect" class="alert alert-danger">
+                        <i class="fas fa-wifi alert-icon"></i>
+                        <span>{% trans "Could not connect. Please refresh this page." %}</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+
+        <!-- Uninstall Process -->
+        <div ng-hide="uninstalldiv" class="content-section">
+            <h2 class="section-title">{% trans "Uninstalling Rspamd" %}</h2>
+            
+            <!-- Uninstall Notifications -->
+            <div ng-hide="uninstallRspamdNotifyBox">
+                <div ng-hide="failedToStartInallation" class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle alert-icon"></i>
+                    <span>{% trans "Failed to start uninstallation. Error message:" %} {$ errorMessage $}</span>
+                </div>
+
+                <div ng-hide="couldNotConnect" class="alert alert-danger">
+                    <i class="fas fa-wifi alert-icon"></i>
+                    <span>{% trans "Could not connect. Please refresh this page." %}</span>
+                </div>
+
+                <div ng-hide="installationFailed" class="alert alert-danger">
+                    <i class="fas fa-times-circle alert-icon"></i>
+                    <span>{% trans "Installation failed." %} {$ errorMessage $}</span>
+                </div>
+
+                <div ng-hide="RspamdSuccessfullyInstalled" class="alert alert-success">
+                    <i class="fas fa-check-circle alert-icon"></i>
+                    <span>{% trans "RSPAMD successfully uninstalled, refreshing page in 3 seconds..." %}</span>
+                </div>
+            </div>
+
+            <!-- Uninstall Log -->
+            <div ng-hide="uninstallRspamdInstallBox" class="install-log">
+                <div class="install-log-header">
+                    <i class="fas fa-terminal"></i>
+                    <h3 class="install-log-title">{% trans "Uninstallation Progress" %}</h3>
+                    <span ng-hide="RspamdLoading" class="loading-spinner"></span>
+                </div>
+                <textarea ng-model="requestData" rows="15" class="log-textarea" readonly>{{ requestData }}</textarea>
+            </div>
+        </div>
+
+        <!-- Uninstall Modal -->
+        <div id="UninstallRspamdmodal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{% trans "Uninstall Rspamd" %}</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{% trans "Do you want to uninstall Rspamd?" %}</p>
+                        <p style="color: var(--text-danger, #dc2626);">{% trans "This action cannot be undone." %}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="modal-btn primary" data-dismiss="modal" ng-click="unistallRspamd()">
+                            {% trans "Yes, Uninstall" %}
+                        </button>
+                        <button type="button" class="modal-btn secondary" data-dismiss="modal">
+                            {% trans "Cancel" %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Rspamd Log Modal -->
+        <div id="ViewRspamdlog" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">{% trans "Rspamd Logs" %}</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea ng-model="RspamdlogsData" class="log-textarea" rows="20" readonly>{{ Rspamdlogs }}</textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="modal-btn secondary" data-dismiss="modal">
+                            {% trans "Close" %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    {% if checkIfRspamdInstalled == 1 %}
+    // Initialize toggle switches
+    setTimeout(function() {
+        // Initialize all toggle switches with default off state
+        $('#antivirus_status').bootstrapToggle({
+            on: 'Enabled',
+            off: 'Disabled',
+            onstyle: 'success',
+            offstyle: 'secondary',
+            size: 'small'
+        });
+        $('#scan_mime_parts').bootstrapToggle({
+            on: 'Yes',
+            off: 'No',
+            onstyle: 'success',
+            offstyle: 'secondary',
+            size: 'small'
+        });
+        $('#log_clean').bootstrapToggle({
+            on: 'Yes',
+            off: 'No',
+            onstyle: 'success',
+            offstyle: 'secondary',
+            size: 'small'
+        });
+        $('#clamav_Debug').bootstrapToggle({
+            on: 'Yes',
+            off: 'No',
+            onstyle: 'success',
+            offstyle: 'secondary',
+            size: 'small'
+        });
+        
+        // Fetch settings after toggles are initialized
+        var scope = angular.element(document.querySelector('[ng-controller="Rspamd"]')).scope();
+        if (scope && scope.fetchRspamdSettings) {
+            scope.fetchRspamdSettings();
+        }
+    }, 500);
+    {% endif %}
+});
+</script>
+{% endblock %}
