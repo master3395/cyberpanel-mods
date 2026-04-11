@@ -1,3 +1,5 @@
+###Rspamd
+
 _RSPAMD_UPSTREAM = ('127.0.0.1', 11334)
 _RSPAMD_HOP_RESPONSE = frozenset({
     'connection', 'transfer-encoding', 'keep-alive', 'proxy-authenticate',
@@ -64,6 +66,29 @@ def rspamd_ui_proxy(request, subpath=None):
     if xhr:
         headers['X-Requested-With'] = xhr
 
+    # Rspamd 3.8+ controller uses custom headers (not only query params). The stock
+    # proxy whitelist omitted these, which breaks getmap/savemap and can break saveactions.
+    _rspamd_hdr_map = (
+        ('HTTP_PASSWORD', 'Password'),
+        ('HTTP_MAP', 'Map'),
+        ('HTTP_IP', 'IP'),
+        ('HTTP_USER', 'User'),
+        ('HTTP_FROM', 'From'),
+        ('HTTP_RCPT', 'Rcpt'),
+        ('HTTP_HELO', 'Helo'),
+        ('HTTP_HOSTNAME', 'Hostname'),
+        ('HTTP_PASS', 'Pass'),
+        ('HTTP_CLASSIFIER', 'classifier'),
+        ('HTTP_CLASS', 'class'),
+        ('HTTP_FLAG', 'flag'),
+        ('HTTP_WEIGHT', 'weight'),
+        ('HTTP_HASH', 'Hash'),
+    )
+    for meta_key, out_name in _rspamd_hdr_map:
+        val = request.META.get(meta_key)
+        if val:
+            headers[out_name] = val
+
     conn = None
     try:
         conn = http.client.HTTPConnection(
@@ -92,7 +117,6 @@ def rspamd_ui_proxy(request, subpath=None):
     if request.method == 'HEAD':
         out = HttpResponse(status=status)
         data = b''
-
     else:
         out = HttpResponse(data, status=status)
 
@@ -119,4 +143,3 @@ def _rewrite_rspamd_location(location, proxy_base):
     if location.startswith('/') and not location.startswith('//'):
         return proxy_base + location
     return location
-
