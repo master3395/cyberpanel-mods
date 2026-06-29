@@ -177,6 +177,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 | 📊 OS Compatibility    | System compatibility analysis       | [guides/OS_COMPATIBILITY_ANALYSIS.md](guides/OS_COMPATIBILITY_ANALYSIS.md)           |
 | 🔧 Comprehensive Fixes | All OS fixes documentation          | [guides/COMPREHENSIVE_OS_FIXES.md](guides/COMPREHENSIVE_OS_FIXES.md)                 |
 | 🎯 API Access Feature  | API access tab documentation        | [guides/API_ACCESS_TAB_FEATURE.md](guides/API_ACCESS_TAB_FEATURE.md)                 |
+| 🛡️ ImunifyAV/OLS Fix  | ImunifyAV/360 + OpenLiteSpeed integration fix | [guides/IMUNIFY_OLS_INTEGRATION_FIX.md](guides/IMUNIFY_OLS_INTEGRATION_FIX.md)       |
 
 📚 **[Browse All Guides](guides/)** in the guides folder for complete documentation.
 

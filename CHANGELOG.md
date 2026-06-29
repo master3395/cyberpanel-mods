@@ -1,5 +1,46 @@
 # 📋 CyberPanel Mods - Changelog
 
+## 🛡️ Version 2.3.0 - ImunifyAV/360 + OpenLiteSpeed Integration Fix (29.06.2026)
+
+### ✨ New Mod: `core-fixes/imunify_ols_integration_fix.sh`
+
+A single, self-contained, idempotent fix for the most common ImunifyAV/Imunify360
+and OpenLiteSpeed panel problems on CyberPanel. Runnable directly from this repo
+or via the master menu (Core Fixes → option 8).
+
+#### 🐛 Issues Addressed
+- **ImunifyAV UI shows no users / no scan history** (upstream issue #1825) —
+  `integration.conf` was missing the `[integration_scripts]` hooks
+  (`users`, `domains`, `panel_info`, …) that feed CyberPanel data to Imunify.
+- **Cannot install ImunifyAV after upgrade/uninstall** (upstream issue #1826) —
+  manual `imav-deploy.sh` aborts with `PANEL=` because `integration.conf` must
+  exist (generic-panel detection) **before** the deploy script runs.
+- **`cat: /home/cyberpanel/switchLSWSStatus: No such file`** — the install
+  progress status file did not exist, breaking the UI progress polling.
+- **Broken/blank panel assets on OpenLiteSpeed** — `:8090` vhost served
+  `/static/` from the wrong path and lacked lsphp contexts for `/imunifyav/`
+  and `/imunify/`.
+- **CSRF 403 on every panel POST behind the OLS reverse proxy** — duplicated
+  `Origin` header; ensures the `OriginDedupe` middleware is present/registered.
+
+#### 🔧 What It Does (all idempotent, with timestamped backups)
+- Creates `/home/cyberpanel/switchLSWSStatus` with correct ownership.
+- Writes a complete `integration.conf` (AV or 360, auto-detected) wired to the
+  CyberPanel `CLScript/*.py` helpers, and makes those scripts executable.
+- Rewrites the CyberPanel OLS panel vhost: `/static/` → `public/static/`, plus
+  `/phpmyadmin/`, `/snappymail/`, `/imunifyav/`, `/imunify/` lsphp contexts
+  (in-place `/static/` patch only when a custom vhost is detected).
+- Installs/registers `OriginDedupeMiddleware` before `CsrfViewMiddleware`.
+- Restarts `cyberpanel` + OpenLiteSpeed only when something changed, reloads the
+  Imunify agent if installed, and prints a verification summary.
+
+#### ✅ Compatibility
+AlmaLinux 8/9/10, RockyLinux 8/9, RHEL 8/9, CentOS 7/9, CloudLinux 7/8,
+Ubuntu 20.04–24.04. Skips the OLS vhost step gracefully on LiteSpeed Enterprise
+or non-OLS servers.
+
+---
+
 ## 🚀 Version 2.2.1 - Master Menu POSIX Shell Fix (29/06/2026)
 
 ### 🐛 Bug Fixes
