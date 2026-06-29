@@ -1,5 +1,15 @@
 # 📋 CyberPanel Mods - Changelog
 
+## 🚀 Version 2.2.1 - Master Menu POSIX Shell Fix (29/06/2026)
+
+### 🐛 Bug Fixes
+
+#### Master menu (`cyberpanel-mods-menu.sh`)
+- **Fixed** `Syntax error: Bad for loop variable` when running via `sh <(curl ...)` on AlmaLinux/RHEL (bash POSIX mode)
+- Replaced bash-only C-style `for ((...))` padding loop with a POSIX `while` loop in `print_menu_item`
+
+---
+
 ## 🚀 Version 2.2.0 - Documentation Reorganization & README Optimization (12.10.2025)
 
 ### ✨ Major Features

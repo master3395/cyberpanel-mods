@@ -881,10 +881,12 @@ show_main_menu() {
             # Calculate padding needed: 58 - num_width - text_length
             local padding_needed=$((58 - num_width - text_length))
             
-            # Build padding string
+            # Build padding string (POSIX-compatible: works when invoked via sh on bash)
             local padding=""
-            for ((i=0; i<$padding_needed; i++)); do
+            local i=0
+            while [ "$i" -lt "$padding_needed" ]; do
                 padding="${padding} "
+                i=$((i + 1))
             done
             
             # Print with proper formatting
