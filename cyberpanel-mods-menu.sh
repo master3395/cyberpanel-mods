@@ -293,9 +293,10 @@ run_core_fixes() {
         echo -e "5. Fix Symbolic Links"
         echo -e "6. AlmaLinux 10 Complete Fix"
         echo -e "7. AlmaLinux 10 Patch"
-        echo -e "8. Back to Main Menu"
+        echo -e "8. ImunifyAV/360 + OpenLiteSpeed Integration Fix"
+        echo -e "9. Back to Main Menu"
         echo -e ""
-        printf "%s" "Please enter number [1-8]: "
+        printf "%s" "Please enter number [1-9]: "
         read choice
         
         case $choice in
@@ -370,10 +371,20 @@ run_core_fixes() {
                 pause
                 ;;
             8)
+                echo -e "\n${BLUE}Running ImunifyAV/360 + OpenLiteSpeed Integration Fix...${NC}"
+                if [[ -f "core-fixes/imunify_ols_integration_fix.sh" ]]; then
+                    bash core-fixes/imunify_ols_integration_fix.sh
+                else
+                    echo -e "${YELLOW}Imunify/OLS fix not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/imunify_ols_integration_fix.sh | bash
+                fi
+                pause
+                ;;
+            9)
                 break
                 ;;
             *)
-                echo -e "${RED}Please enter a valid number [1-8]${NC}"
+                echo -e "${RED}Please enter a valid number [1-9]${NC}"
                 ;;
         esac
     done
