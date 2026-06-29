@@ -32,6 +32,12 @@
 The easiest way to use all CyberPanel mods is through our interactive master menu:
 
 ```bash
+bash <(curl https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel-mods-menu.sh || wget -O - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel-mods-menu.sh)
+```
+
+**Also works with `sh`** (POSIX-compatible as of v2.2.1):
+
+```bash
 sh <(curl https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel-mods-menu.sh || wget -O - https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/cyberpanel-mods-menu.sh)
 ```
 
