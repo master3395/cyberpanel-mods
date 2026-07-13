@@ -30,6 +30,21 @@ missing or corrupted, without a full reinstall. Addresses upstream
 
 ---
 
+## 📧 Version 2.3.1 - SnappyMail Data Path/Permissions Fix (13.07.2026)
+
+### ✨ New Mod: `email-fixes/snappymail_data_path_fix.sh`
+
+- Repairs SnappyMail upgrades where `public/snappymail/include.php` still points
+  at the legacy RainLoop data folder.
+- Recreates the expected SnappyMail data directory structure.
+- Fixes `lscpd:lscpd` ownership and write permissions on SnappyMail/RainLoop
+  data directories.
+- Restarts the CyberPanel web service when present.
+- Added to the master menu under Email Fixes.
+
+---
+
+
 ## 🛡️ Version 2.3.0 - ImunifyAV/360 + OpenLiteSpeed Integration Fix (29.06.2026)
 
 ### ✨ New Mod: `core-fixes/imunify_ols_integration_fix.sh`

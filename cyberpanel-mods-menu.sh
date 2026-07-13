@@ -627,9 +627,10 @@ run_email_fixes() {
     while true; do
         echo -e "\n${CYAN}=== Email Fixes ===${NC}"
         echo -e "1. Sieve (Filter) Fix for SnappyMail"
-        echo -e "2. Back to Main Menu"
+        echo -e "2. SnappyMail Data Path/Permissions Fix"
+        echo -e "3. Back to Main Menu"
         echo -e ""
-        printf "%s" "Please enter number [1-2]: "
+        printf "%s" "Please enter number [1-3]: "
         read choice
         
         case $choice in
@@ -643,10 +644,19 @@ run_email_fixes() {
                 pause
                 ;;
             2)
+                echo -e "\n${BLUE}Running SnappyMail Data Path/Permissions Fix...${NC}"
+                if [[ -f "email-fixes/snappymail_data_path_fix.sh" ]]; then
+                    bash email-fixes/snappymail_data_path_fix.sh
+                else
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/email-fixes/snappymail_data_path_fix.sh | bash
+                fi
+                pause
+                ;;
+            3)
                 break
                 ;;
             *)
-                echo -e "${RED}Please enter a valid number [1-2]${NC}"
+                echo -e "${RED}Please enter a valid number [1-3]${NC}"
                 ;;
         esac
     done
