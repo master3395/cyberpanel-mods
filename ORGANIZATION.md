@@ -92,6 +92,8 @@ cyberpanel-mods/
 - **fix_503_service_unavailable.sh** - Fix 503 errors
 - **fix_missing_wp_cli.sh** - Install WP-CLI
 - **fixperms.sh** - Fix file permissions
+- **imunify_ols_integration_fix.sh** - ImunifyAV/360 + OLS panel integration
+- **rebuild_lscp_webadmin.sh** - Rebuild LSCP / WebAdmin (issue #1839)
 
 ### 🔄 Version Managers (`version-managers/`)
 - **php_version_manager_enhanced.sh** - Enhanced PHP version manager

@@ -1,5 +1,35 @@
 # 📋 CyberPanel Mods - Changelog
 
+## 🔧 Version 2.4.0 - Rebuild LSCP / WebAdmin (21.07.2026)
+
+### ✨ New Mod: `core-fixes/rebuild_lscp_webadmin.sh`
+
+Restores CyberPanel WebAdmin (`lscpd` / LSCP) when `/usr/local/lscp/conf` is
+missing or corrupted, without a full reinstall. Addresses upstream
+[usmannasir/cyberpanel#1839](https://github.com/usmannasir/cyberpanel/issues/1839).
+
+#### 🐛 Issues Addressed
+- Panel `:8090` (or custom bind.conf port) down after a bad repair
+- Missing `/usr/local/lscp/conf` while sites, OLS, and MariaDB still work
+- Full `install.sh` aborting on existing `ftpgroup` / `ftpuser` (wrong path)
+
+#### 🔧 What It Does
+- Uses local `CyberCP/install/lscp.tar.gz` when present, else downloads from
+  `usmannasir/cyberpanel` (version-matched, fallback `v2.4.8`) with HTTP checks
+- Timestamped backup of any existing `/usr/local/lscp` before extract
+- Restores conf, certs, `pythonenv.conf`, and the matching `lscpd` binary
+  (Ubuntu 22/24/26 → `lscpd.0.4.0`)
+- Restarts `lscpd` and verifies listen + HTTPS probe
+- Does **not** touch websites, MariaDB, or OLS vhosts
+
+#### 📍 Access
+- Master menu: Core Fixes → option 9
+- One-liner:
+  `curl -fsSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/rebuild_lscp_webadmin.sh | bash`
+- Guide: `guides/REBUILD_LSCP_WEBADMIN.md`
+
+---
+
 ## 🛡️ Version 2.3.0 - ImunifyAV/360 + OpenLiteSpeed Integration Fix (29.06.2026)
 
 ### ✨ New Mod: `core-fixes/imunify_ols_integration_fix.sh`

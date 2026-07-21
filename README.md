@@ -61,6 +61,9 @@ curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core
 
 # Apply security hardening
 curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/security/cyberpanel_security_enhanced.sh | bash
+
+# Rebuild LSCP / WebAdmin (missing conf, panel :8090 down - issue #1839)
+curl -fsSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/rebuild_lscp_webadmin.sh | bash
 ```
 
 📖 **For all commands and detailed usage, see the [Installation Guide](guides/installation-guide.md)**
@@ -78,6 +81,7 @@ curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/secu
 #### Problem Solving
 
 - 🔧 **[Troubleshooting Guide](guides/troubleshooting-guide.md)** - Common issues and solutions
+- 🧰 **[Rebuild LSCP / WebAdmin](guides/REBUILD_LSCP_WEBADMIN.md)** - Restore panel :8090 without full reinstall (#1839)
 - 🛡️ **[Security Best Practices](guides/security-best-practices.md)** - Complete security guide
 - 📊 **[OS Compatibility Analysis](guides/OS_COMPATIBILITY_ANALYSIS.md)** - System compatibility details
 

@@ -294,9 +294,10 @@ run_core_fixes() {
         echo -e "6. AlmaLinux 10 Complete Fix"
         echo -e "7. AlmaLinux 10 Patch"
         echo -e "8. ImunifyAV/360 + OpenLiteSpeed Integration Fix"
-        echo -e "9. Back to Main Menu"
+        echo -e "9. Rebuild LSCP / WebAdmin (issue #1839)"
+        echo -e "10. Back to Main Menu"
         echo -e ""
-        printf "%s" "Please enter number [1-9]: "
+        printf "%s" "Please enter number [1-10]: "
         read choice
         
         case $choice in
@@ -381,10 +382,20 @@ run_core_fixes() {
                 pause
                 ;;
             9)
+                echo -e "\n${BLUE}Rebuilding LSCP / WebAdmin (issue #1839)...${NC}"
+                if [[ -f "core-fixes/rebuild_lscp_webadmin.sh" ]]; then
+                    bash core-fixes/rebuild_lscp_webadmin.sh
+                else
+                    echo -e "${YELLOW}LSCP rebuild not found locally, downloading...${NC}"
+                    curl -sSL https://raw.githubusercontent.com/master3395/cyberpanel-mods/main/core-fixes/rebuild_lscp_webadmin.sh | bash
+                fi
+                pause
+                ;;
+            10)
                 break
                 ;;
             *)
-                echo -e "${RED}Please enter a valid number [1-9]${NC}"
+                echo -e "${RED}Please enter a valid number [1-10]${NC}"
                 ;;
         esac
     done
