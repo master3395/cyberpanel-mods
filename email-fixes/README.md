@@ -10,6 +10,12 @@ This directory contains email-related fixes and enhancements for CyberPanel inst
 
 **Description:** Installs and configures Sieve (Filter) functionality for SnappyMail in CyberPanel installations. This fix addresses the issue where CyberPanel doesn't automatically install Sieve filtering capabilities with SnappyMail.
 
+### 2. SnappyMail Data Path/Permissions Fix
+
+**Script:** `snappymail_data_path_fix.sh`
+
+**Description:** Repairs CyberPanel SnappyMail after RainLoop/SnappyMail upgrades where `public/snappymail/include.php` still points at `/usr/local/lscp/cyberpanel/rainloop/data/` or the data folders are not writable by `lscpd`. This fixes the error: `SnappyMail can not access the data folder`.
+
 ## Features
 
 - ✅ **Cross-platform compatibility** - Works on all CyberPanel-supported operating systems
@@ -70,6 +76,8 @@ This directory contains email-related fixes and enhancements for CyberPanel inst
 3. Select option 1: "Sieve (Filter) Fix for SnappyMail"
 4. Follow the prompts to complete installation
 
+For SnappyMail data folder errors, select option 2: "SnappyMail Data Path/Permissions Fix".
+
 ### Direct Execution
 ```bash
 # Make executable (if needed)
@@ -82,6 +90,9 @@ chmod +x email-fixes/sieve_fix_enhanced.sh
 ./email-fixes/sieve_fix_enhanced.sh --help    # Show help
 ./email-fixes/sieve_fix_enhanced.sh --verify  # Verify installation
 ./email-fixes/sieve_fix_enhanced.sh --force   # Force reinstallation
+
+# Repair SnappyMail data path/permissions
+./email-fixes/snappymail_data_path_fix.sh
 ```
 
 ## Prerequisites
